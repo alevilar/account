@@ -20,7 +20,7 @@ echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__
 ?>
 <?php echo $this->element('form_mini_year_month_search'); ?>
 
-<?php echo $this->Form->create('Cierre'); ?>
+<?php echo $this->Form->create('Cierre', array('url'=>array('controller'=>'cierres', 'action'=>'add'))); ?>
 <div id='place-for-inputs' class="cq-hide"></div>
 <div id='descripcion-cierre' class="well cq-hide">
     <div class="pull-right">
