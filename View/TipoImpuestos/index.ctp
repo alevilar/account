@@ -1,18 +1,14 @@
-
-
 <div class="tipoImpuestos index">
-<h2><?php __('Tipo de Impuestos');?></h2>
+	<div class="btn-group pull-right">
+	<?php echo $this->Html->link(__('Crear Tipo de impuesto'), array('action' => 'add'), array('class'=>'btn btn-success btn-lg')); ?>
+	</div>
+<h2><?php echo  __('Tipo de Impuestos');?></h2>
 <p>
-<?php
-echo $this->Paginator->counter(array(
-	'format' => __('Página {:page} de {:pages}, mostrando {:current} de {:count} elementos')
-));
-?></p>
 <table class="table">
 <tr>
-	<th><?php echo $this->Paginator->sort('Nombre','name');?></th>
-	<th><?php echo $this->Paginator->sort('porcentaje');?></th>
-        <th><?php echo $this->Paginator->sort('tiene_neto');?></th>
+	<th><?php echo $this->Paginator->sort('name',__('Nombre'));?></th>
+	<th><?php echo $this->Paginator->sort('porcentaje',__('Porcentaje'));?></th>
+        <th><?php echo $this->Paginator->sort('tiene_neto',__('Neto'));?></th>
         <th><?php echo $this->Paginator->sort('tiene_impuesto');?></th>
 	<th class="actions"><?php __('Acciones');?></th>
 </tr>
@@ -45,13 +41,16 @@ foreach ($tipoImpuestos as $tipoImpuesto):
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('previous'), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('next').' >>', array(), null, array('class' => 'disabled'));?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Crear Tipo de impuesto'), array('action' => 'add')); ?></li>
-	</ul>
-</div>
+		<p>
+    	<?php
+    	echo $this->Paginator->counter(array(
+    	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+    	));
+    	?>
+    	</p>
+
+    <div class="paging">
+    	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
+     | 	<?php echo $this->Paginator->numbers();?>
+    	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
+    </div>

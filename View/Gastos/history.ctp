@@ -1,6 +1,8 @@
 <?php echo $this->Html->css('/account/css/style');?>
+<div class="btn-group pull-right">
+<?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-lg btn-success')) ?>
+</div>
 
-<?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-lg btn-success pull-right')) ?>
 <h1>Listado de Gastos</h1>
 
 

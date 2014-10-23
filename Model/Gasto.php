@@ -28,6 +28,14 @@ class Gasto extends AccountAppModel {
 				'message' => 'Este número de factura ya esta cargada para este mismo proveedor'
 			)
 		),
+        'proveedor_list' => array(
+            'no_repetido proveedor' => array(
+                'on' => 'create',
+                'rule' => 'proveedor_no_repetido',
+                'required' => true,
+                'message' => 'El proveedor ya posee una factura de este numero'
+            )
+        ),
         'fecha' => array(
 		  'date' => array(
 				'rule' => 'date',
@@ -107,8 +115,6 @@ class Gasto extends AccountAppModel {
 			'insertQuery' => ''
 		),
 	);
-
-
     public $filterArgs = array(
         'cierre_id' => array(
             'type' => 'value',
@@ -373,14 +379,23 @@ class Gasto extends AccountAppModel {
             }
             return $ret;
         }
-        
-        
-        
-        function factura_no_repetida(){
+          function proveedor_no_repetido(){
+              if (!empty($this->data['Gasto']['proveedor_id'])){
+                  $ops = array(
+                      'conditions' => array(
+                          'Gasto.proveedor_id' => $this->data['Gasto']['proveedor_id']
+                                            ),
+                                );
+               if (!empty($ops)){
+                    return false;
+                  }else{
+                     return true;
+                    }
+                 }
+              }
+         function factura_no_repetida(){
             if (!empty($this->data['Gasto']['factura_nro'])){
-
                 $data = $this->getProveedorFromFieldData();
-        
                 $provExist = false;
                 if ( $data ) {
                     $this->Proveedor->recursive = -1;

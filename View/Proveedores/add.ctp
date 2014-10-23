@@ -10,12 +10,8 @@
 		echo $this->Form->input('telefono');
 		echo $this->Form->input('domicilio');
 	?>
-<?php echo $this->Form->end('Guardar');?>
+        <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
+        <?php echo $this->Html->link(__('Cancelar'), array('action'=>'index'), array('class'=>'btn btn-default btn-lg pull-right'));?>        </fieldset>
 </fieldset>
 
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Listar Proveedores', true), array('action' => 'index'));?></li>
-	</ul>
 </div>

@@ -4,7 +4,7 @@
 echo $this->Html->link('Nueva Clasificación', array('action' => 'add_edit'), array(
     'data-role'=>'button',
     'data-theme' => 'b',
-    
+    'class'=>'btn btn-success btn-lg',
     )
         );
 ?>

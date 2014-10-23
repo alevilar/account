@@ -12,7 +12,7 @@
 <?php
 echo $this->Form->create('Proveedor', array('url'=>$this->action));
 echo $this->Form->input('buscar_proveedor', array('type'=>'text', 'div'=>array('class'=>'col-md-6'), 'placeholder'=>'Buscar Proveedor', 'label'=>false));
-echo $this->Form->submit('buscar', array('class'=>'btn btn-primary col-md-1'));
+echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary col-md-1'));
 echo $this->Form->end();
 ?>
 </div>
@@ -22,21 +22,14 @@ echo $this->Form->end();
 
 <br>
 <p>
-<?php
-
-echo $this->Paginator->counter('Mostrando {:start} a {:end} de {:count} proveedores');
-
-?></p>
-
-
 <table class="table">
 <tr>
-	<th><?php echo $this->Paginator->sort('Nombre','name');?></th>
-	<th><?php echo $this->Paginator->sort('CUIT', 'cuit');?></th>
-	<th><?php echo $this->Paginator->sort('mail');?></th>
-	<th><?php echo $this->Paginator->sort('telefono');?></th>
-	<th><?php echo $this->Paginator->sort('domicilio');?></th>
-	<th><?php echo $this->Paginator->sort('Creado','created');?></th>
+	<th><?php echo $this->Paginator->sort('name',__('Nombre'));?></th>
+	<th><?php echo $this->Paginator->sort('cuit',__('CUIT'));?></th>
+	<th><?php echo $this->Paginator->sort('mail',__('Correo Electrónico'));?></th>
+	<th><?php echo $this->Paginator->sort('telefono',__('Teléfono'));?></th>
+	<th><?php echo $this->Paginator->sort('domicilio',__('Domicilio'));?></th>
+	<th><?php echo $this->Paginator->sort('created',__('Creado'));?></th>
 	<th class="actions"><?php __('Acciones');?></th>
 </tr>
 <?php
@@ -67,16 +60,23 @@ foreach ($proveedores as $proveedor):
 			<?php echo date("d/m/Y H:i", strtotime($proveedor['Proveedor']['created'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $proveedor['Proveedor']['id'])); ?>
-			<?php echo $this->Html->link(__('Borrar'), array('action' => 'delete', $proveedor['Proveedor']['id']), null, sprintf(__('¿Esta seguro que desea eliminar "%s"?'), $proveedor['Proveedor']['name'])); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Borrar'), array('action' => 'delete', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default'), null, sprintf(__('¿Esta seguro que desea eliminar "%s"?'), $proveedor['Proveedor']['name'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
 </table>
 </div>
+		<p>
+    	<?php
+    	echo $this->Paginator->counter(array(
+    	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+    	));
+    	?>
+    	</p>
 
     <div class="paging">
-    <?php echo $this->Paginator->prev('<< ' . __('anterior'), array(), null, array('class' => 'disabled')); ?> | 
-    <?php echo $this->Paginator->numbers(); ?>	
-    <?php echo $this->Paginator->next(__('siguiente') . ' >>', array(), null, array('class' => 'disabled')); ?>
+    	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
+     | 	<?php echo $this->Paginator->numbers();?>
+    	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
     </div>

@@ -118,15 +118,16 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
         <?php } ?>
     </tbody>
 </table>
+		<p>
+    	<?php
+    	echo $this->Paginator->counter(array(
+    	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+    	));
+    	?>
+    	</p>
 
-<?php
-echo $this->Paginator->counter(array(
-    'format' => __('Página {:count} de {:pages}, mostrando {:current} elementos de {:count}', true)
-));
-?>
-
-<div class="paging">
-    <?php echo $this->Paginator->prev('<< ' . __('anterior'), array(), null, array('class' => 'disabled')); ?>
-    | 	<?php echo $this->Paginator->numbers(); ?>
-    <?php echo $this->Paginator->next(__('próximo') . ' >>', array(), null, array('class' => 'disabled')); ?>
-</div>
+    <div class="paging">
+    	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
+     | 	<?php echo $this->Paginator->numbers();?>
+    	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
+    </div>

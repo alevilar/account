@@ -78,7 +78,7 @@ class GastosController extends AccountAppController
     {
         $this->pageTitle = 'Nuevo Gasto';
         if (!empty($this->request->data)) {
-            $this->Gasto->create();
+           $this->Gasto->create();
             
             if ($this->Gasto->save($this->request->data)) {
                 $this->Session->setFlash(__('The Gasto has been saved', true));
@@ -92,9 +92,7 @@ class GastosController extends AccountAppController
                 $this->Session->setFlash("Error al guardar el gasto", 'Risto.flash_error');
             }
         }
-        
         $this->request->data['Gasto']['fecha'] = date('Y-m-d', strtotime('now'));
-
         $tipoFacturas = $this->Gasto->TipoFactura->find('list');
         $this->set('tipo_impuestos', $this->Gasto->TipoImpuesto->find('all', array('recursive' => -1)));
         $impuestos = $this->Gasto->Impuesto->find('all');
