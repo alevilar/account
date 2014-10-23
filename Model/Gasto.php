@@ -380,19 +380,37 @@ class Gasto extends AccountAppModel {
             return $ret;
         }
           function proveedor_no_repetido(){
-              if (!empty($this->data['Gasto']['proveedor_id'])){
+              if (!empty($this->data['Gasto']['factura_nro'])){
+                  $data = $this->getProveedorFromFieldData();
+                  $provExist = false;
+                  if ( $data ) {
+                      $this->Proveedor->recursive = -1;
+                      $provExist = $this->Proveedor->findByCuit( $data['Proveedor']['cuit'] );
+                  }
                   $ops = array(
                       'conditions' => array(
-                          'Gasto.proveedor_id' => $this->data['Gasto']['proveedor_id']
-                                            ),
-                                );
-               if (!empty($ops)){
-                    return false;
-                  }else{
-                     return true;
-                    }
-                 }
+                          'Gasto.factura_nro' => $this->data['Gasto']['factura_nro']
+                      ),
+                  );
+
+                  $cant = true;
+                  if ( $provExist ) {
+                      $ops['conditions']['Gasto.proveedor_id'] = $provExist['Proveedor']['id'];
+                  } elseif ( empty($this->data['Gasto']['proveedor_list']) ) {
+                      // es sin proveedor
+                      $ops['conditions']['Gasto.proveedor_id'] = 'NULL';
+                  } else {
+                      $cant = 0;
+                  }
+
+                  if ( $this->data['Gasto']) {
+                      $cant = $this->find('count', $ops);
+                  }
+                  return !($cant > 0);
               }
+              return true;
+
+          }
          function factura_no_repetida(){
             if (!empty($this->data['Gasto']['factura_nro'])){
                 $data = $this->getProveedorFromFieldData();
