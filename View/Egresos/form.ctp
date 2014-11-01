@@ -29,7 +29,7 @@ echo $this->Form->input('fecha', array('type' => 'datetime'));
 
 
 echo $this->Form->input('tipo_de_pago_id');
-echo $this->Form->input('total', array('type' => 'number'));
+echo $this->Form->input('total', array('type' => 'number', 'step'=>'any'));
 
 ?>
 </div>

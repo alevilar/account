@@ -24,7 +24,7 @@ class Gasto extends AccountAppModel {
 			'no_repetido' => array(
                 'on' => 'create',
 				'rule' => 'factura_no_repetida',
-				'required' => true,
+				'required' => false,
 				'message' => 'Este número de factura ya esta cargada para este mismo proveedor'
 			)
 		),
@@ -32,7 +32,7 @@ class Gasto extends AccountAppModel {
             'no_repetido proveedor' => array(
                 'on' => 'create',
                 'rule' => 'proveedor_no_repetido',
-                'required' => true,
+                'required' => false,
                 'message' => 'El proveedor ya posee una factura de este numero'
             )
         ),

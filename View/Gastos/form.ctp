@@ -18,6 +18,7 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
                 'label' => 'Proveedor', 
                 'type' => 'text', 
                 'id' => 'proveedores', 
+                'required' => false,
                 'class' => 'form-control auto-complete',
                 'data-url' => $this->html->url(array('plugin' => 'account', 'controller' => 'proveedores', 'action' => 'index', 'ext' => 'json')),
                 'data-toggle' => 'popover',
@@ -26,7 +27,7 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
                     );
 
             echo $this->Form->input('tipo_factura_id');
-            echo $this->Form->input('factura_nro');
+            echo $this->Form->input('factura_nro', array('required' => false));
             
             //echo $this->Form->hidden('file');
             echo $this->Form->input('media_file',array('label'=>'PDF, Imagen, Archivo', 'type'=>'file'));
