@@ -11,8 +11,8 @@ echo "<span class='tipo_de_pago'> " . $this->Html->imageMedia($egreso['TipoDePag
 echo "<p>";
 
 if ( $egreso['Egreso']['media_id'] ) {
-    $img = $this->Html->imageMedia( $egreso['Egreso']['media_id'] );
-    echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'download', $egreso['Egreso']['media_id'] ), array( 'escape' => false) );
+    $img = $this->Html->imageMedia( $egreso['Egreso']['media_id'], array('width'=>'100px') );
+    echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'download', $egreso['Egreso']['media_id'] ), array( 'escape' => false ));
 }
 
 

@@ -42,7 +42,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                 
                 <td><?php echo $this->Number->currency($g['Egreso']['total']); ?></td>
 
-                <td><?php echo strftime('%d %b', strtotime($g['Egreso']['fecha'])); ?></td>
+                <td><?php echo $this->Time->format($g['Egreso']['fecha'], '%d %b'); ?></td>
 
                 
                 
@@ -91,17 +91,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                 <td><?php echo $g['Egreso']['observacion']; ?></td>
 
                 <td>
-                    <?php
-                    $ext = substr(strrchr($g['Egreso']['file'], '.'), 1);
-                    if (in_array(strtolower($ext), array('jpg', 'png', 'gif', 'jpeg'))) {
-                        $iii = $this->Html->image(THUMB_FOLDER . $g['Egreso']['file'], array('width' => 48, 'alt' => 'Bajar', 'escape' => false));
-                    } else {
-                        $iii = "Descargar $ext";
-                    }
-                    if (!empty($g['Egreso']['file'])) {
-                        echo $this->Html->link($iii, "/" . IMAGES_URL . $g['Egreso']['file'], array('target' => '_blank', 'escape' => false));
-                    }
-                    ?>
+                     <?php echo $this->Html->imageMedia( $g['Egreso']['media_id'], array('height'=>'40px')); ?>
                 </td>
 
                 <td>

@@ -93,7 +93,7 @@
                         echo "<td>Sin Clasificar</td>";
                     }
 
-                    echo "<td class='fecha'>" . strftime('%d %b', strtotime($g['Gasto']['fecha'])) . "</td>";
+                    echo "<td class='fecha'>" . $this->Time->format($g['Gasto']['fecha'], '%d %b' ) . "</td>";
 
 
                     if (!empty($g['Proveedor']) && !empty($g['Proveedor']['id'])) {

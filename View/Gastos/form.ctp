@@ -90,6 +90,7 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
                                         ) {
                                         echo $this->Form->input('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . ".neto", array(
                                             'type' => 'number',
+                                            'step'=>'any',
                                             'label' => "Neto",
                                             'data-porcent' => $ti['TipoImpuesto']['porcentaje'],
                                             'class' => 'calc_neto importe',                                            
@@ -107,6 +108,7 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
                                         ) {
                                         echo $this->Form->input('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . '.importe', array(
                                             'type' => 'number',
+                                            'step'=>'any',
                                             'label' => 'Impuesto',
                                             'data-porcent' => $ti['TipoImpuesto']['porcentaje'],
                                             'class' => 'calc_impuesto importe',                                            
@@ -125,8 +127,8 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
             </div>
 
             <?php
-            echo $this->Form->input('importe_neto', array('id' => 'importe-neto', 'type' => 'number'));
-            echo $this->Form->input('importe_total', array('id' => 'importe-total', 'type' => 'number'));
+            echo $this->Form->input('importe_neto', array('id' => 'importe-neto', 'type' => 'number', 'step'=>'any'));
+            echo $this->Form->input('importe_total', array('id' => 'importe-total', 'type' => 'number', 'step'=>'any'));
             ?>
 
 
