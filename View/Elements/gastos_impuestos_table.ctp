@@ -50,45 +50,45 @@ foreach ($gastos as $g) {
                     echo "<td>Sin Clasificar</td>";
                 }
 
-                echo "<td class='fecha'>" . date('d-m-y', strtotime($g['Gasto']['fecha'])) . "</td>";
+                echo "<td class='fecha'>" . $g['Gasto']['fecha'] . "</td>";
 
 
                 if (!empty($g['Proveedor'])) {
                     echo "<td>" . $g['Proveedor']['name'] . "</td>";
                     echo "<td>" . $g['Proveedor']['cuit'] . "</td>";
                 } else {
-                    echo "<td>&nbsp;</td>";
-                    echo "<td>&nbsp;</td>";
+                    echo "<td></td>";
+                    echo "<td></td>";
                 }
 
                 if (!empty($g['TipoFactura'])) {
                     echo "<td>" . $g['TipoFactura']['name'] . "</td>";
                 } else {
-                    echo "<td>&nbsp;</td>";
+                    echo "<td></td>";
                 }
 
                 echo "<td>" . $g['Gasto']['factura_nro'] . "</td>";
-                echo "<td>" . $g['Gasto']['importe_neto'] . "</td>";
+                echo "<td>" . $this->Number->currency( $g['Gasto']['importe_neto'] ) . "</td>";
                 ?>
 
                     <?php
                     foreach ($tipo_impuestos as $tid => $ti) {
                         if (!empty($g['Impuesto'])) {
-                            echo "<td>" . mostrarNetoDe($tid, $g['Impuesto']) . "</td>";
+                            echo "<td>" . $this->Number->currency( mostrarNetoDe($tid, $g['Impuesto']) ). "</td>";
                         } else {
-                            echo "<td>&nbsp;</td>";
+                            echo "<td></td>";
                         }
                         if (!empty($g['Impuesto'])) {
-                            echo "<td>" . mostrarImpuestoDe($tid, $g['Impuesto']) . "</td>";
+                            echo "<td>" . $this->Number->currency( mostrarImpuestoDe($tid, $g['Impuesto']) ) . "</td>";
                         } else {
-                            echo "<td>&nbsp;</td>";
+                            echo "<td></td>";
                         }
                     }
 
-                    echo "<td class='total' style=\"mso-number-format:'0.00';\">" . $g['Gasto']['importe_total'] . "</td>";
+                    echo "<td class='total'>" . $this->Number->currency( $g['Gasto']['importe_total'] ). "</td>";
 
-                    echo "<td class='faltapagar'>$faltaPagar" . "&nbsp;</td>";
-                    echo "<td class='obs'>" . $g['Gasto']['observacion'] . "&nbsp;</td>";
+                    echo "<td class='faltapagar'>" . $this->Number->currency( $faltaPagar ) . "</td>";
+                    echo "<td class='obs'>" . $g['Gasto']['observacion'] . "</td>";
                 }
                 ?>
             </tr>

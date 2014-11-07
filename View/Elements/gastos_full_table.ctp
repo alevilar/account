@@ -64,7 +64,7 @@
                 ?>
                 <tr class="<?php echo $classpagado; ?>">
                     <?php
-                    $meterInput = "&nbsp;";
+                    $meterInput = "";
                     if (empty($g['Gasto']['cierre_id'])) {
                         // abierto
                         $meterInput = "<input type='checkbox' name='data[Gasto][" . $g['Gasto']['id'] . "][id]' value='" . $g['Gasto']['id'] . "'/>";
@@ -104,7 +104,7 @@
                         }
                         echo "</td>";
                     } else {
-                        echo "<td class='proveedor-desc'>&nbsp;</td>";
+                        echo "<td class='proveedor-desc'></td>";
                     }
                     
                     
@@ -122,12 +122,12 @@
                             echo $this->Html->link($iii, "/" . IMAGES_URL . $g['Gasto']['file'], array('target' => '_blank', 'escape' => false));
                         }
                     }
-                    echo "&nbsp;</td>";
+                    echo "</td>";
 
                     if (!empty($g['TipoFactura'])) {
                         echo "<td>" . $g['TipoFactura']['name'] . "</td>";
                     } else {
-                        echo "<td>&nbsp;</td>";
+                        echo "<td></td>";
                     }
 
                     echo "<td>" . $g['Gasto']['factura_nro'] . "</td>";
@@ -139,19 +139,19 @@
                         if (!empty($g['Impuesto'])) {
                             echo "<td class='impuestos'>" . mostrarNetoDe($tid, $g['Impuesto']) . "</td>";
                         } else {
-                            echo "<td class='impuestos'>&nbsp;</td>";
+                            echo "<td class='impuestos'></td>";
                         }
                         if (!empty($g['Impuesto'])) {
                             echo "<td class='impuestos'>" . mostrarImpuestoDe($tid, $g['Impuesto']) . "</td>";
                         } else {
-                            echo "<td class='impuestos'>&nbsp;</td>";
+                            echo "<td class='impuestos'></td>";
                         }
                     }
 
                     echo "<td class='total'>" . $this->Number->currency($g['Gasto']['importe_total']) . "</td>";
 
-                    echo "<td class='faltapagar'>".$this->Number->currency($faltaPagar)."&nbsp;</td>";
-                    echo "<td class='obs'>" . $g['Gasto']['observacion'] . "&nbsp;</td>";
+                    echo "<td class='faltapagar'>".$this->Number->currency($faltaPagar)."</td>";
+                    echo "<td class='obs'>" . $g['Gasto']['observacion'] . "</td>";
 
                     $linkPagar = '';
                     if ($faltaPagar) {
