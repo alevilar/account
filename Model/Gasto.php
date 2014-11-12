@@ -151,7 +151,7 @@ class Gasto extends AccountAppModel {
            
         public function filterTipoCierre ($data = array()) {
             $tipo_cierre = $data['tipo_cierre'];
-            if ( $tipo_cierre == 'a' ) {
+            if ( $tipo_cierre == 'c' ) {
                 $condition = 'Gasto.cierre_id IS NOT NULL';
             } else {
                 $condition = 'Gasto.cierre_id IS NULL';

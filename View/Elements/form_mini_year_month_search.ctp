@@ -59,12 +59,12 @@ echo $this->Form->create($modelName, array(
     
     <div class="col-md-2">
         <?php
-        echo $this->Form->input('fecha_desde', array('label'=>false, 'type' => 'date', 'pladeholder'=>'Desde'));
+        echo $this->Form->input('fecha_desde', array('label'=>false, 'type' => 'date', 'placeholder'=>'Desde'));
         ?>
     </div>
     <div class="col-md-2">
         <?php
-        echo  $this->Form->input('fecha_hasta', array('label'=>false,'placeholder'=>'Hasta', 'type' => 'date'));
+        echo  $this->Form->input('fecha_hasta', array('label'=>false, 'placeholder'=>'Hasta', 'type' => 'date'));
         ?>
     </div>
     <div class="col-md-1">
