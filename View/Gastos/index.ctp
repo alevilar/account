@@ -1,4 +1,4 @@
-
+<?php echo $this->Html->css('/account/css/style') ?>
 <div>
 
      <?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-lg btn-success pull-right')) ?>
@@ -47,7 +47,7 @@ if (empty($gastos)) {
 }
  ?>
 
-    <table class="table table-hover table-responsive table-condensed">
+    <table class="table table-hover table-responsive table-condensed list-con-imagen">
 
         <tbody>
             <?php
@@ -55,7 +55,7 @@ if (empty($gastos)) {
             foreach ($gastos as $gasto):
                 $i++;
                 ?>
-                <tr>
+                <tr class="list-item-con-imagen">
                     <td>
                         <?php
                         echo $this->Form->checkbox("Gasto.$i.gasto_seleccionado", array(
@@ -93,17 +93,11 @@ if (empty($gastos)) {
                             <small><?php echo $this->Html->link($gasto['Proveedor']['name'], array('controller' => 'proveedores', 'action' => 'view', $gasto['Proveedor']['id']), array('data-rel' => 'dialog')); ?></small>
                     </td>
 
-                    <td class="center">
+                    <td class="center image">
                         <?php
-                        if (!empty($gasto['Gasto']['file'])) {
-                            $ext = substr(strrchr($gasto['Gasto']['file'], '.'), 1);
-                            if (in_array( strtolower($ext), array('jpg', 'png', 'gif', 'jpeg'))) {
-                                $iii = $this->Html->image(THUMB_FOLDER . $gasto['Gasto']['file'], array('width' => 48, 'alt' => 'Bajar', 'escape' => false));
-                            } else {
-                                $iii = "<span class='glyphicon glyphicon glyphicon-cloud-download'></span><br>".strtoupper($ext);
-                            }
-                            echo $this->Html->link($iii, "/" . IMAGES_URL . $gasto['Gasto']['file'], array('target' => '_blank', 'escape' => false));
-                        }
+                        
+                        $iii = $this->Html->imageMedia( $gasto['Gasto']['media_id'], array('width' => 48, 'alt' => 'Bajar', 'escape' => false, 'class'=>''));
+                        echo $this->Html->link($iii, array( 'plugin' => 'risto', 'controller' => 'medias', 'action' => 'view',  $gasto['Gasto']['media_id']), array('target' => '_blank', 'escape' => false));
                         ?>
                     </td>
                     

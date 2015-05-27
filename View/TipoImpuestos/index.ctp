@@ -28,10 +28,10 @@ foreach ($tipoImpuestos as $tipoImpuesto):
 			<?php echo $tipoImpuesto['TipoImpuesto']['porcentaje']; ?>
 		</td>
                 <td>
-			<?php echo $tipoImpuesto['TipoImpuesto']['tiene_neto']; ?>
+			<?php echo $tipoImpuesto['TipoImpuesto']['tiene_neto']?'✓':''; ?>
 		</td>
-                <td>
-			<?php echo $tipoImpuesto['TipoImpuesto']['tiene_impuesto']; ?>
+        <td>
+			<?php echo $tipoImpuesto['TipoImpuesto']['tiene_impuesto']?'✓':''; ?>
 		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $tipoImpuesto['TipoImpuesto']['id'])); ?>

@@ -40,18 +40,6 @@ $class = (abs($gasto['Gasto']['importe_pagado']) < abs($gasto['Gasto']['importe_
     <p>Importe Pagado: <?php echo $this->Number->currency($gasto['Gasto']['importe_pagado']) ?></p>
 
 
-    <?php
-    if (!empty($gasto['Gasto']['file'])) {
-        $ext = substr(strrchr($gasto['Gasto']['file'],'.'),1);
-        if ( in_array(strtolower($ext), array('jpg', 'png', 'gif', 'jpeg')) ) {
-            $iii = $this->Html->image($gasto['Gasto']['file'], array('width'=>348, 'alt' => 'Bajar', 'escape' => false));
-        } else {
-            $iii = "ARCHIVO: ".$gasto['Gasto']['file'];
-        }
-        echo $this->Html->link($iii, "/" .IMAGES_URL .$gasto['Gasto']['file'], array('target'=>'_blank', 'escape' => false));
-    }
-    ?>
-
     <p>
         <?php if (!empty($gasto['Proveedor']['name'])){ ?>
         Proveedor: <?php echo $gasto['Proveedor']['name']; ?><br>
@@ -77,9 +65,10 @@ $class = (abs($gasto['Gasto']['importe_pagado']) < abs($gasto['Gasto']['importe_
     <div class="clearfix"></div>
 
             <?php 
+            echo $this->Html->imageMedia( $gasto['Gasto']['media_id'], array('width'=>'50%') );
             if (  $gasto['Gasto']['media_id'] ) {
                 $img = $this->Html->imageMedia( $gasto['Gasto']['media_id'], array('width'=>'50%') );
-                echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'download', $gasto['Gasto']['media_id']), array('escape'=> false));
+                echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'view', $gasto['Gasto']['media_id']), array('escape'=> false));
             }
          ?>
 

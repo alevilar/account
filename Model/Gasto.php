@@ -4,6 +4,8 @@ App::uses('AccountAppModel', 'Account.Model');
 
 class Gasto extends AccountAppModel {
 
+    public $findMethods = array('pagado' =>  true);
+
 	//public $name = 'Gasto';
     public $order = array(
             'Gasto.fecha' => 'DESC', 
@@ -75,6 +77,10 @@ class Gasto extends AccountAppModel {
         'Account.Clasificacion',
 		'Risto.TipoFactura',
         'Account.Cierre',
+        'Media' => array(
+            'className' => 'Risto.Media',
+            'foreignKey' => 'media_id',
+            )           
 	);
         
     public $hasMany = array(
@@ -358,27 +364,39 @@ class Gasto extends AccountAppModel {
             return $importePagado;
         }
         
-        public function find($conditions = null, $fields = array(), $order = null, $recursive = null)
-        {
-            $ret = parent::find($conditions, $fields, $order, $recursive);
-                       
-            if (is_array($ret) && ($conditions == 'all' || $conditions == 'first') ) {
-                if ($conditions == 'first') {
-                    $ret = array($ret);
-                }
+
+        /**
+        *
+        *   @param array $ret Array del find de Gasto
+        *
+        *   me devuelve el mismo array pero con un nuevo campo "importe_pagado"
+        **/
+        public function completarConImportePagado ( $ret ) {
+            
+            if ( array_key_exists($this->name, $ret)) {
+                // es porque vino de un find First
+                $ret[$this->name]['importe_pagado'] = $this->importePagado( $ret[$this->name]['id'] );
+
+            } else {
+                // el $ret viene del find All
                 
                 foreach ($ret as &$g){
                     if (!empty($g['Gasto'])) {
-                        $g['Gasto']['importe_pagado'] = $this->importePagado($g['Gasto']['id']);                    
+                        $g['Gasto']['importe_pagado'] = $this->importePagado($g['Gasto']['id']);
                     }
                 }
 
-                if ($conditions == 'first') {
+                if (count($ret) == 1) {
                     $ret = $ret[0];
                 }
             }
+
+
             return $ret;
         }
+      
+
+
           function proveedor_no_repetido(){
               if (!empty($this->data['Gasto']['factura_nro'])){
                   $data = $this->getProveedorFromFieldData();

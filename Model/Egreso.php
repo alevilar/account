@@ -47,7 +47,13 @@ class Egreso extends AccountAppModel {
                 ),
 	);
         
-	public $belongsTo = array('Risto.TipoDePago');
+	public $belongsTo = array(
+        'Risto.TipoDePago',
+        'Media' => array(
+            'className' => 'Risto.Media',
+            'foreignKey' => 'media_id',
+            )
+        );
 
 //        public $hasMany = array('Account.EgresoGasto');
         

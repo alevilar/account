@@ -12,7 +12,7 @@ echo "<p>";
 
 if ( $egreso['Egreso']['media_id'] ) {
     $img = $this->Html->imageMedia( $egreso['Egreso']['media_id'], array('width'=>'100px') );
-    echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'download', $egreso['Egreso']['media_id'] ), array( 'escape' => false ));
+    echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'view', $egreso['Egreso']['media_id'] ), array( 'escape' => false ));
 }
 
 

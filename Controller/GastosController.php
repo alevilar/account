@@ -19,9 +19,11 @@ class GastosController extends AccountAppController
         $this->Gasto->recursive = 1;
         $this->Gasto->order = array('Gasto.created ASC');
         $gastos = $this->Gasto->enDeuda($conditions);
+        $gastos = $this->Gasto->completarConImportePagado($gastos);
+
         $proveedores = $this->Gasto->Proveedor->find('list');
         $this->set('proveedores', $proveedores);
-        $this->set('gastos', $gastos );
+        $this->set('gastos', $gastos );        
     }
 
     public function history()
@@ -44,10 +46,10 @@ class GastosController extends AccountAppController
         
         $ops = array(
             'conditions' => $conditions,
-            'recursive' => 1,
+            'recursive' => 0,
         );
-        
         $gastos = $this->Gasto->find('all', $ops);
+        $gastos = $this->Gasto->completarConImportePagado($gastos);
         
         $this->set(compact('gastos'));
     }
@@ -66,11 +68,12 @@ class GastosController extends AccountAppController
             'Cierre',
             'Clasificacion',
             'TipoFactura',
-            'Egreso' => 'TipoDePago',
+            'Egreso' => array('TipoDePago', 'Media'),
             'Impuesto' => 'TipoImpuesto',
+            'Media'
         ));
 
-        $this->set('gasto', $this->Gasto->read(null, $id));
+        $this->set('gasto', $this->Gasto->completarConImportePagado( $this->Gasto->read(null, $id) ) );
     }
     
     
@@ -178,4 +181,3 @@ class GastosController extends AccountAppController
 
 }
 
-?>

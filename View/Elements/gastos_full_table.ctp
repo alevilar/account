@@ -29,7 +29,7 @@
                 <th rowspan="2">Clasificación</th>
                 <th rowspan="2">Fecha</th>
                 <th rowspan="2" data-priority="3">Proveedor</th>
-                <th rowspan="2">File</th>
+                <th rowspan="2" class="image"><?php echo __('Imagen'); ?></th>
                 <th rowspan="2">Tipo</th>
                 <th rowspan="2" data-priority="2">N° Factura</th>
                 <th rowspan="2" data-priority="1">$Neto</th>
@@ -110,18 +110,8 @@
                     
                     
                     
-                    echo "<td class='center'>";
-                    if (!empty($g['Gasto']['file'])) {
-                        $ext = substr(strrchr($g['Gasto']['file'], '.'), 1);
-                        if (in_array(strtolower($ext), array('jpg', 'png', 'gif', 'jpeg'))) {
-                            $iii = $this->Html->image(THUMB_FOLDER . $g['Gasto']['file'], array('class' => 'thumb', 'alt' => 'Descargar', 'escape' => false));
-                        } else {
-                            $iii = "<span class='glyphicon glyphicon glyphicon-cloud-download'></span><br>".strtoupper($ext);
-                        }
-                        if (!empty($g['Gasto']['file'])) {
-                            echo $this->Html->link($iii, "/" . IMAGES_URL . $g['Gasto']['file'], array('target' => '_blank', 'escape' => false));
-                        }
-                    }
+                    echo "<td class='center image'>";
+                    echo $this->Html->imageMedia( $g['Gasto']['media_id'], array('class' => 'thumb')) ;
                     echo "</td>";
 
                     if (!empty($g['TipoFactura'])) {
