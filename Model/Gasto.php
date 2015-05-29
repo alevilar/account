@@ -77,10 +77,7 @@ class Gasto extends AccountAppModel {
         'Account.Clasificacion',
 		'Risto.TipoFactura',
         'Account.Cierre',
-        'Media' => array(
-            'className' => 'Risto.Media',
-            'foreignKey' => 'media_id',
-            )           
+        'Risto.Media', 
 	);
         
     public $hasMany = array(
@@ -379,18 +376,10 @@ class Gasto extends AccountAppModel {
 
             } else {
                 // el $ret viene del find All
-                
-                foreach ($ret as &$g){
-                    if (!empty($g['Gasto'])) {
-                        $g['Gasto']['importe_pagado'] = $this->importePagado($g['Gasto']['id']);
-                    }
-                }
-
-                if (count($ret) == 1) {
-                    $ret = $ret[0];
+                foreach ($ret as $k => $g){
+                    $ret[$k] = $this->completarConImportePagado( $g );
                 }
             }
-
 
             return $ret;
         }

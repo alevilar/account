@@ -50,7 +50,6 @@ class GastosController extends AccountAppController
         );
         $gastos = $this->Gasto->find('all', $ops);
         $gastos = $this->Gasto->completarConImportePagado($gastos);
-        
         $this->set(compact('gastos'));
     }
 
