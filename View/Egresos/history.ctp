@@ -22,6 +22,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
     <thead>
         <tr>
             <th>&nbsp;</th>
+            <th>#</th>
             <th>Importe</th>
             <th>Fecha</th>
             <th>Listado de Gastos Pagados</th>
@@ -40,6 +41,8 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                     <?php echo $this->Html->imageMedia($g['TipoDePago']['media_id'], array('class' => 'thumb')); ?>
                 </td>
                 
+                <td><?php echo $g['Egreso']['id']; ?></td>
+
                 <td><?php echo $this->Number->currency($g['Egreso']['total']); ?></td>
 
                 <td><?php echo $this->Time->format($g['Egreso']['fecha'], '%d %b'); ?></td>
@@ -73,7 +76,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                                     $tipoFactura = $gasto['TipoFactura']['name'];
                                 }
                                 ?>
-                                <tr>
+                                <tr>                                    
                                     <td><?php echo $proveedor ?></td>
                                     <td><?php echo $tipoFactura ?> <?php echo $gasto['factura_nro'] ?></td>
                                     <td><?php echo date('d-m-Y', strtotime($gasto['fecha'])) ?></td>
@@ -91,7 +94,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                 <td><?php echo $g['Egreso']['observacion']; ?></td>
 
                 <td>
-                     <?php echo $this->Html->imageMedia( $g['Egreso']['media_id'], array('height'=>'40px')); ?>
+                     <?php echo $this->Html->imageMedia( $g['Media'], array('height'=>'40px')); ?>
                 </td>
 
                 <td>

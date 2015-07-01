@@ -43,7 +43,7 @@ class CierresController extends AccountAppController
             'conditions' => array(
                 'Gasto.cierre_id' => $id,
             ),
-            'recursive' => 1,
+            'recursive' => 0,
         );
 
         $gastos = $this->Cierre->Gasto->find('all', $ops);

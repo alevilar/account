@@ -24,6 +24,7 @@ class EgresosController extends AccountAppController
         $this->Paginator->settings = array(
             'contain' => array(
                 'TipoDePago',
+                'Media',
                 'Gasto' => array(
                     'Proveedor',
                     'TipoFactura',

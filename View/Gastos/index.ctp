@@ -96,8 +96,7 @@ if (empty($gastos)) {
                     <td class="center image">
                         <?php
                         
-                        $iii = $this->Html->imageMedia( $gasto['Gasto']['media_id'], array('width' => 48, 'alt' => 'Bajar', 'escape' => false, 'class'=>''));
-                        echo $this->Html->link($iii, array( 'plugin' => 'risto', 'controller' => 'medias', 'action' => 'view',  $gasto['Gasto']['media_id']), array('target' => '_blank', 'escape' => false));
+                       echo $this->Html->imageMedia( $gasto['Media'], array('width' => 48, 'alt' => 'Bajar', 'class'=>''));
                         ?>
                     </td>
                     

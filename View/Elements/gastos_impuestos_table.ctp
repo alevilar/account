@@ -1,6 +1,7 @@
 <table data-role="table" data-mode="columntoggle">
         <thead>
             <tr>
+                <th rowspan="2">#</th>
                 <th rowspan="2">Estado</th>
                 <th rowspan="2">Clasificación</th>
                 <th rowspan="2">Fecha Factura</th>
@@ -41,6 +42,8 @@ foreach ($gastos as $g) {
     ?>
                 <tr class="<?php echo $classpagado . " " . $class; ?>"><?php
                 
+                echo "<td>". $g['Gasto']['id'] ."</td>";
+
                  $estado = !empty($g['Gasto']['cierre_id']) ? 'cerrado' : 'abierto';
                  echo "<td>$estado</td>";
 

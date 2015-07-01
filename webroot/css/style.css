@@ -18,15 +18,14 @@
     width: 48px;
 }
 
-.image img {
+.image img.thumb {
     width: 48px;
     -webkit-transition: all 2s ease; /* Safari and Chrome */
     -moz-transition: all 2s ease; /* Firefox */
     -ms-transition: all 2s ease; /* IE 9 */
     -o-transition: all 2s ease; /* Opera */
     transition: all 2s ease;
-    clip: rect(0px, 48px,40px,0px);
-    position: absolute;
+    clip: rect(0px, 48px,40px,0px);    
 }
 
 

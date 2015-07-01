@@ -26,6 +26,7 @@
         <thead>
             <tr>    
                 <th rowspan="2"><input type="checkbox" value="0" id="impt-gastos-select-all"/></th>
+                <th rowspan="2">#</th>
                 <th rowspan="2">Clasificación</th>
                 <th rowspan="2">Fecha</th>
                 <th rowspan="2" data-priority="3">Proveedor</th>
@@ -86,7 +87,7 @@
                     }
 
                     echo "<td>$meterInput</td>";
-
+                    echo "<td>" . $g['Gasto']['id'] . "</td>";
                     if (!empty($g['Clasificacion'])) {
                         echo "<td>" . $g['Clasificacion']['name'] . "</td>";
                     } else {
@@ -111,7 +112,7 @@
                     
                     
                     echo "<td class='center image'>";
-                    echo $this->Html->imageMedia( $g['Gasto']['media_id'], array('class' => 'thumb')) ;
+                    echo $this->Html->imageMedia( $g['Media'], array('class' => 'thumb', 'width' => '68')) ;
                     echo "</td>";
 
                     if (!empty($g['TipoFactura'])) {

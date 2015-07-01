@@ -64,13 +64,7 @@ $class = (abs($gasto['Gasto']['importe_pagado']) < abs($gasto['Gasto']['importe_
 
     <div class="clearfix"></div>
 
-            <?php 
-            echo $this->Html->imageMedia( $gasto['Gasto']['media_id'], array('width'=>'50%') );
-            if (  $gasto['Gasto']['media_id'] ) {
-                $img = $this->Html->imageMedia( $gasto['Gasto']['media_id'], array('width'=>'50%') );
-                echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'view', $gasto['Gasto']['media_id']), array('escape'=> false));
-            }
-         ?>
+    <?php echo $this->Html->mediaLink( $gasto['Media'], array('width'=>'50%') );?>
 
 </div>
 
