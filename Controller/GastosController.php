@@ -46,7 +46,7 @@ class GastosController extends AccountAppController
         
         $ops = array(
             'conditions' => $conditions,
-            'recursive' => 0,
+            'recursive' => 1,
         );
         $gastos = $this->Gasto->find('all', $ops);
         $gastos = $this->Gasto->completarConImportePagado($gastos);
