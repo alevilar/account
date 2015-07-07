@@ -43,12 +43,12 @@ class CierresController extends AccountAppController
             'conditions' => array(
                 'Gasto.cierre_id' => $id,
             ),
-            'recursive' => 0,
+            'recursive' => 0,           
         );
 
-        $gastos = $this->Cierre->Gasto->find('all', $ops);
+        $gastos = $this->Cierre->Gasto->find('all', $ops);        
         $cierre = $this->Cierre->read( null, $id );
-        $tipo_impuestos = $this->Cierre->Gasto->TipoImpuesto->find('list');
+        $tipo_impuestos = $this->Cierre->Gasto->TipoImpuesto->find('list');        
         $this->set(compact('gastos', 'cierre', 'tipo_impuestos'));       
             
     }

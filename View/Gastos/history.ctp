@@ -6,10 +6,12 @@
 <h1>Listado de Gastos</h1>
 
 
-<?php
+<?php 
 echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__('Descargar Excel')
-    , array(
-        'action'=> $this->action, 'ext'=> 'xls'
+    , array(        
+        $this->action,
+        'ext'=> 'xls',
+        '?' => trim(strstr($_SERVER['REQUEST_URI'], '?'), '?')
         )
     , array(
         'escape' => false,

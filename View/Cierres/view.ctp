@@ -8,12 +8,21 @@
 <h3>Listado de los Gastos que entraron en este cierre</h3>
 
 <?php
+echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__('Descargar Excel')
+    , array(                
+        $cierre['Cierre']['id'],
+        'ext'=> 'xls',
+        '?' => trim(strstr($_SERVER['REQUEST_URI'], '?'), '?')
+        )
+    , array(
+        'escape' => false,
+        'data-ajax' => 'false',
+        'class' => 'btn btn-primary pull-right',
+        'div'=> array(
+            'class' => 'pull-right'
+            )
+    ));
 
- 
-echo $this->Html->link('Descargar Excel', array('action'=> $this->action , $cierre['Cierre']['id'], 'extension' => '.xls' ), array(
-    'data-ajax' => 'false',
-    'class' => 'btn btn-success',
-));
 ?>
 
 <?php echo $this->element('gastos_full_table'); ?>

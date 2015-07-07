@@ -18,10 +18,13 @@
 </style>
 
 
+
 <a href="#" id="btn-mostrar-impuestos" class="btn btn-default" style="float: right">Mostrar Impuestos</a>
 
 <div id="tabla-de-gastos">      
     
+<div class="alert alert-info dismiss">Se encontraron <?php echo count($gastos);?> Gastos</div>
+
     <table class="table table-hover">
         <thead>
             <tr>    
