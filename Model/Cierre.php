@@ -8,7 +8,7 @@ App::uses('AccountAppModel', 'Account.Model');
 class Cierre extends AccountAppModel {
 
     
-    public $order = array('Cierre.created DESC');
+    public $order = array('Cierre.created' => 'DESC');
         
 	public $validate = array(
 		'name' => array('notempty')
