@@ -81,7 +81,7 @@ class EgresosController extends AccountAppController
                 ),
                 'recursive' => 1,
                     ));
-            foreach ($gastosAll as $g) {
+            foreach ($gastosAll as $g) {                
                 $suma_gastos += $g['Gasto']['importe_total'] - $g['Gasto']['importe_pagado'];
             }
 

@@ -17,7 +17,14 @@ class Gasto extends AccountAppModel {
     public $actsAs = array(
         'Search.Searchable',
         'Containable',
-        'Risto.MediaUploadable' ,       
+        'Risto.MediaUploadable' ,
+        'Risto.DiaBuscable' => array(
+                'fechaField' => 'fecha',
+                'fieldsParaSumatoria' => array(
+                        "importe_neto",
+                        "importe_total",
+                ),
+            ),
     );
     
     
@@ -449,5 +456,6 @@ class Gasto extends AccountAppModel {
             }
             return true;
         }
+
+
 }
-?>

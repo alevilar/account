@@ -11,6 +11,12 @@ class Egreso extends AccountAppModel {
         'Search.Searchable',
         'Containable',
         'Risto.MediaUploadable',
+        'Risto.DiaBuscable' => array(
+                'fechaField' => 'fecha',
+                'fieldsParaSumatoria' => array(
+                        "total",
+                ),
+            ),
         );
 
     public $order = array(
