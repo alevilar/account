@@ -376,7 +376,6 @@ class Gasto extends AccountAppModel {
         *   me devuelve el mismo array pero con un nuevo campo "importe_pagado"
         **/
         public function completarConImportePagado ( $ret ) {
-            
             if ( array_key_exists($this->name, $ret)) {
                 // es porque vino de un find First
                 $ret[$this->name]['importe_pagado'] = $this->importePagado( $ret[$this->name]['id'] );
