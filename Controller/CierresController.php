@@ -48,7 +48,10 @@ class CierresController extends AccountAppController
                 'Impuesto',
                 'Cierre',
                 'Media',
-                'Egreso'=> array('Media')
+                'Egreso'=> array('Media'),
+                'Proveedor',
+                'Clasificacion',
+                'TipoFactura',
                 ),           
         );
 
