@@ -26,8 +26,7 @@ if ($this->name == 'Clasificaciones' && $this->action == 'index') {
     $c8 = 'active';
 }
 ?>
-<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-    <ul class="nav navbar-nav">
+
         
 
         <li class="dropdown">
