@@ -8,7 +8,7 @@ class Clasificacion extends AccountAppModel {
 	public $name = 'Clasificacion';
 	
     public $validate = array(
-		'name' => array('notempty')
+		'name' => array('notBlank')
 	);
     
     public $actsAs = array('Tree');
