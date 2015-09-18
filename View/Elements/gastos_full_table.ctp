@@ -19,7 +19,7 @@
 
 
 
-<a href="#" id="btn-mostrar-impuestos" class="btn btn-default" style="float: right">Mostrar Impuestos</a>
+<a href="#" id="btn-mostrar-impuestos" class="btn btn-link" style="float: right">Mostrar Impuestos</a>
 
 <div id="tabla-de-gastos">      
     

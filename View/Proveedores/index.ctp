@@ -10,7 +10,7 @@
 <br>
 <div class="row">
 <?php
-echo $this->Form->create('Proveedor', array('url'=>$this->action));
+echo $this->Form->create('Proveedor');
 echo $this->Form->input('buscar_proveedor', array('type'=>'text', 'div'=>array('class'=>'col-md-6'), 'placeholder'=>'Buscar Proveedor', 'label'=>false));
 echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary col-md-1'));
 echo $this->Form->end();

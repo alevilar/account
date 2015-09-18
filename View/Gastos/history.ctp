@@ -6,8 +6,27 @@
 <h1>Listado de Gastos</h1>
 
 
-<?php 
-echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__('Descargar Excel')
+<?php echo $this->element('form_mini_year_month_search'); ?>
+
+<?php echo $this->Form->create('Cierre', array('url'=>array('controller'=>'cierres', 'action'=>'add'))); ?>
+
+
+
+<div class="btn-group btn-group-sm" role="group">
+<?php
+echo $this->Form->button('<span class="glyphicon glyphicon-folder-close"></span> '.__('Aplicar Cierre')
+    , array(
+    'escape' => false,
+    'type' => 'button',
+    'data-theme' => 'b',
+    'data-inline' => 'true',
+    'data-role' => 'button',
+    'class' => 'btn btn-default',
+    'div' => false,
+    'id' => 'btn-gastos-apli-cierre'));
+
+
+echo $this->Html->link('<span class="glyphicon glyphicon-download-alt"></span> '.__('Descargar Excel')
     , array(        
         $this->action,
         'ext'=> 'xls',
@@ -16,15 +35,15 @@ echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__
     , array(
         'escape' => false,
         'data-ajax' => 'false',
-        'class' => 'btn btn-primary pull-right',
-        'div'=> array(
-            'class' => 'pull-right'
-            )
+        'class' => 'btn btn-default',
+        'div'=> false
     ));
-?>
-<?php echo $this->element('form_mini_year_month_search'); ?>
 
-<?php echo $this->Form->create('Cierre', array('url'=>array('controller'=>'cierres', 'action'=>'add'))); ?>
+?>
+
+
+</div>
+
 <div id='place-for-inputs' class="cq-hide"></div>
 <div id='descripcion-cierre' class="well cq-hide">
     <div class="pull-right">
@@ -41,22 +60,8 @@ echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__
     ?>
 </div>
 
+<?php  echo $this->Form->end(); ?>
 
-<div class="">
-<?php
-echo $this->Form->button('Aplicar Cierre', array(
-    'type' => 'button',
-    'data-theme' => 'b',
-    'data-inline' => 'true',
-    'data-role' => 'button',
-    'class' => 'btn btn-default',
-    'id' => 'btn-gastos-apli-cierre'));
-
-echo $this->Form->end();
-?>
-
-
-    </div>
 
 <br>
 

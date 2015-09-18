@@ -53,19 +53,76 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
 
             <div class="well">
                 <div class="row">
-                    <div class="col-md-4">
+                    <h4>Seleccionar los impuestos aplicados en esta factura</h4>
+                    <div class="col-md-12">
                         <div id="impuestos-check">
-                            <h4>Seleccionar los impuestos aplicados en esta factura</h4>
                             <?php
                             foreach ($tipo_impuestos as $ti) {
-                                echo $this->Form->input('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . '.checked', array(
-                                    'type' => 'checkbox',
-                                    'class' => '',
-                                    'label' => $ti['TipoImpuesto']['name'],
-                                    'div' => array('class' => 'checkbox'),
-                                    'checked' => !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]),
-                                    'onchange' => 'if(this.checked){jQuery("#tipo-impuesto-id-' . $ti['TipoImpuesto']['id'] . '").show()} else {jQuery("#tipo-impuesto-id-' . $ti['TipoImpuesto']['id'] . '").hide()}'
-                                ));
+                                ?>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                    <?php
+                                    echo $this->Form->checkbox('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . '.checked', array(
+                                       // 'type' => 'checkbox',
+                                        'class' => 'text-info',
+                                        'label' => false,
+                                        'style' => 'width: 16px; height: 16px;',
+                                       // 'div' => array('class' => 'form-group checkbox-inline'),
+                                        'checked' => !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]),
+                                        'onchange' => 'if(this.checked){jQuery("#tipo-impuesto-id-' . $ti['TipoImpuesto']['id'] . '").show()} else {jQuery("#tipo-impuesto-id-' . $ti['TipoImpuesto']['id'] . '").hide()}'
+                                    ));
+                                    echo " ".$ti['TipoImpuesto']['name'];
+
+                                    $ocultar = empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]);
+                                    ?>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div  class="row" <?php echo ($ocultar) ? 'style="display: none;"' : ''; ?> id="<?php echo 'tipo-impuesto-id-' . $ti['TipoImpuesto']['id'] ?>">
+                                   
+                                            <div class="col-md-6">
+                                            <?php
+                                            if ( $ti['TipoImpuesto']['tiene_neto']
+                                                || !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['neto'])
+                                                ) {
+                                                echo $this->Form->input('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . ".neto", array(
+                                                    'type' => 'number',
+                                                    'step'=>'any',
+                                                    'placeholder' => "Neto",
+                                                    'label' => false,
+                                                    'data-porcent' => $ti['TipoImpuesto']['porcentaje'],
+                                                    'class' => 'calc_neto importe form-control',                                            
+                                                    'value' => !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]) ? $this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['neto'] : '',
+                                                ));
+                                            }
+                                            ?>
+                                                </div>
+                                            
+                                            <div class="col-md-6">
+                                            <?php
+
+                                             if ( $ti['TipoImpuesto']['tiene_impuesto'] 
+                                                || !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['importe'])
+                                                ) {
+                                                echo $this->Form->input('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . '.importe', array(
+                                                    'type' => 'number',
+                                                    'step'=>'any',
+                                                    'placeholder' => 'Impuesto',
+                                                    'label' => false,
+                                                    'data-porcent' => $ti['TipoImpuesto']['porcentaje'],
+                                                    'class' => 'calc_impuesto importe  form-control',                                            
+                                                    'value' => !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]) ? $this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['importe'] : '',
+                                                ));
+                                            }
+                                            ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <?php
+
+
                             }
                             ?>
                             <div class="clear"></div>
@@ -79,46 +136,7 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
                         <div class="row" id="impuestos">
                             <?php
                             foreach ($tipo_impuestos as $ti) {
-                                $ocultar = empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]);
-                                ?>
-                                <fieldset <?php echo ($ocultar) ? 'style="display: none;"' : ''; ?> id="<?php echo 'tipo-impuesto-id-' . $ti['TipoImpuesto']['id'] ?>">
-                                    <legend><?php echo $ti['TipoImpuesto']['name'] ?></legend>
-                                    <div class="col-md-6">
-                                    <?php
-                                    if ( $ti['TipoImpuesto']['tiene_neto']
-                                        || !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['neto'])
-                                        ) {
-                                        echo $this->Form->input('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . ".neto", array(
-                                            'type' => 'number',
-                                            'step'=>'any',
-                                            'label' => "Neto",
-                                            'data-porcent' => $ti['TipoImpuesto']['porcentaje'],
-                                            'class' => 'calc_neto importe',                                            
-                                            'value' => !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]) ? $this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['neto'] : '',
-                                        ));
-                                    }
-                                    ?>
-                                        </div>
-                                    
-                                    <div class="col-md-6">
-                                    <?php
-
-                                     if ( $ti['TipoImpuesto']['tiene_impuesto'] 
-                                        || !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['importe'])
-                                        ) {
-                                        echo $this->Form->input('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . '.importe', array(
-                                            'type' => 'number',
-                                            'step'=>'any',
-                                            'label' => 'Impuesto',
-                                            'data-porcent' => $ti['TipoImpuesto']['porcentaje'],
-                                            'class' => 'calc_impuesto importe',                                            
-                                            'value' => !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]) ? $this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['importe'] : '',
-                                        ));
-                                    }
-                                    ?>
-                                    </div>
-                                </fieldset>
-                                <?php
+                                
                             }
                             ?>
                         </div>

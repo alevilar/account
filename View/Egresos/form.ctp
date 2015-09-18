@@ -31,23 +31,24 @@ echo $this->Form->input('fecha', array('type' => 'datetime'));
 echo $this->Form->input('tipo_de_pago_id');
 echo $this->Form->input('total', array('type' => 'number', 'step'=>'any'));
 
-?>
-</div>
-
-<div class="col-md-6">
-    
-    <?php
-
-if (!empty($this->request->data['Egreso']['media_id'])) {    
-        echo $this->Html->imageMedia( $this->request->data['Egreso']['media_id'] , array('class'=>'thumb'));
-}
-echo $this->Form->input('media_file', array('type' => 'file', 'label' => 'Subir PDF, Imagen, Archivo'));
+?> 
+    </div>
 
 
-echo $this->Form->input('observacion');
-?>
-</div>
-    
+    <div class="col-md-6">
+        
+        <?php
+
+    if (!empty($this->request->data['Egreso']['media_id'])) {    
+            echo $this->Html->imageMedia( $this->request->data['Egreso']['media_id'] , array('class'=>'thumb'));
+    }
+    echo $this->Form->input('media_file', array('type' => 'file', 'label' => 'Subir PDF, Imagen, Archivo'));
+
+
+    echo $this->Form->input('observacion');
+    ?>
+    </div>
+</div>       
     <?php
 // listado de gastos seleccionados ocultos
 
