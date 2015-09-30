@@ -71,9 +71,10 @@
     
     
     
-    function $netoVecino (el) {
-        var $parent = $(el).parents('fieldset');
-        return $parent.find('input.calc_neto')
+    function $netoVecino (el) {        
+        var $parent = $(el).parents('.detalle-impuesto');
+        console.debug("el padre es %o", $parent);
+        return $parent.find('input.calc_neto');
     }
     
     function $impuestoVecino (el) {
@@ -86,6 +87,8 @@
         var porcent = Number( $(elImpuesto).attr('data-porcent') );
         var neto = $netoVecino(elImpuesto).val();
         var valor;
+
+        console.info("el porcentaje es %o y el neto es %o y el valor %o", porcent, neto, valor);
         if (porcent && !$(elImpuesto).val() && neto) {
             valor = neto *  (porcent/100) ;
             if (valor > 0) {
@@ -110,11 +113,12 @@
     }
        
        
-    $(".calc_impuesto", "#GastoAddForm").bind('focus', function(e){
+    $(".calc_impuesto").bind('focus',"#GastoAddForm", function(e){
+        console.info("focuseo %o", this);
         calcularImpuestoSegunNetoVecino(this);
     });
 
-    $(".calc_neto", '#GastoAddForm').bind('focus', function(e){   
+    $(".calc_neto").bind('focus', '#GastoAddForm', function(e){   
         calcularNetoSegunImpuestoVecino(this);
     });
 

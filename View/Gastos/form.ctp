@@ -78,7 +78,7 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
                                     ?>
                                     </div>
                                     <div class="col-md-8">
-                                        <div  class="row" <?php echo ($ocultar) ? 'style="display: none;"' : ''; ?> id="<?php echo 'tipo-impuesto-id-' . $ti['TipoImpuesto']['id'] ?>">
+                                        <div  class="row detalle-impuesto" <?php echo ($ocultar) ? 'style="display: none;"' : ''; ?> id="<?php echo 'tipo-impuesto-id-' . $ti['TipoImpuesto']['id'] ?>">
                                    
                                             <div class="col-md-6">
                                             <?php
