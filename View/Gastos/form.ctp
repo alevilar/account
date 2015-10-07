@@ -91,7 +91,8 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
                                                     'placeholder' => "Neto",
                                                     'label' => false,
                                                     'data-porcent' => $ti['TipoImpuesto']['porcentaje'],
-                                                    'class' => 'calc_neto importe form-control',                                            
+                                                    'class' => 'calc_neto importe',      
+                                                    'div' => array('class' => 'form-group'),
                                                     'value' => !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]) ? $this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['neto'] : '',
                                                 ));
                                             }
@@ -110,7 +111,8 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
                                                     'placeholder' => 'Impuesto',
                                                     'label' => false,
                                                     'data-porcent' => $ti['TipoImpuesto']['porcentaje'],
-                                                    'class' => 'calc_impuesto importe  form-control',                                            
+                                                    'class' => 'calc_impuesto importe',
+                                                    'div' => array('class' => 'form-group'),                               
                                                     'value' => !empty($this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]) ? $this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['importe'] : '',
                                                 ));
                                             }
