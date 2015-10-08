@@ -256,7 +256,7 @@ class Egreso extends AccountAppModel {
                         'alias' => 'EgresoGasto',
                         'type' => 'LEFT',
                         'conditions' => array(
-                            'EgresoGasto.gasto_id = Gasto.id',
+                            'EgresoGasto.gasto_id = Gasto.id',                            
                             'Gasto.proveedor_id' => $data['proveedor_id'],
                         )   
                     ),                    
@@ -264,6 +264,10 @@ class Egreso extends AccountAppModel {
                 'fields' => array(
                     'EgresoGasto.egreso_id'
                 ),
+                'conditions' => array(
+                    'EgresoGasto.egreso_id = Egreso.id',
+                    'Gasto.proveedor_id' => $data['proveedor_id'],
+                    ),
                 'recursive' => -1,
                 'group' => array('EgresoGasto.egreso_id'),
             ));
