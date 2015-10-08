@@ -248,31 +248,28 @@ class Egreso extends AccountAppModel {
 
         function __filterByProveedorId( $data ){
 
-            $query = $this->getQuery('all', array(
+            //$this->alias = 'Egreso2';
+            $query = $this->Gasto->getQuery('all', array(
                 'joins' => array(
                     array(
                         'table' => 'account_egresos_gastos',
                         'alias' => 'EgresoGasto',
                         'type' => 'LEFT',
                         'conditions' => array(
-                            'EgresoGasto.egreso_id = Egreso.id',
-                        )
-                    ),
-                    array(
-                        'table' => 'account_gastos',
-                        'alias' => 'Gasto',
-                        'type' => 'LEFT',
-                        'conditions' => array(
                             'EgresoGasto.gasto_id = Gasto.id',
-                            'Gasto.proveedor_id' => $data['proveedor_id'],
-                        )
-                    ),
+                        )   
+                    ),                    
                 ),
                 'fields' => array(
-                    'Egreso.id'
+                    'EgresoGasto.egreso_id'
+                ),
+                'conditions' => array(
+                    'Gasto.proveedor_id' => $data['proveedor_id'],
                 ),
                 'recursive' => -1,
+                'group' => array('EgresoGasto.egreso_id'),
             ));
+            //$this->alias = 'Egreso';
             return $query;
         }
 }
