@@ -354,7 +354,8 @@ class Gasto extends AccountAppModel {
                 $id = $this->id;
             }
             
-            $fieldContain['contain'] = 'Egreso';  
+            $fieldContain['recursive'] = -1;
+            $fieldContain['contain'] = 'Egreso';
             $fieldContain['conditions'] = array('Gasto.id'=>$id);
             $coso = parent::find('first', $fieldContain);            
             if (!empty($coso['Egreso'])) {

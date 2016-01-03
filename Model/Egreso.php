@@ -248,7 +248,6 @@ class Egreso extends AccountAppModel {
 
         function __filterByProveedorId( $data ){
 
-            //$this->alias = 'Egreso2';
             $query = $this->Gasto->getQuery('all', array(
                 'joins' => array(
                     array(
@@ -271,7 +270,6 @@ class Egreso extends AccountAppModel {
                 'recursive' => -1,
                 'group' => array('EgresoGasto.egreso_id'),
             ));
-            //$this->alias = 'Egreso';
             return $query;
         }
 }

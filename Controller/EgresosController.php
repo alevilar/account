@@ -79,8 +79,8 @@ class EgresosController extends AccountAppController
                 'conditions' => array(
                     'Gasto.id' => $gastos,
                 ),
-                'recursive' => 1,
-                    ));
+                'contain' => array('Egreso'),
+                ));
             $gastosAll = $this->Egreso->Gasto->completarConImportePagado($gastosAll);
             foreach ($gastosAll as $g) {
                 $suma_gastos += $g['Gasto']['importe_total'] - $g['Gasto']['importe_pagado'];
