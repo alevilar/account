@@ -1,5 +1,5 @@
 <?php 
-echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
+echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', true);
 ?>
 <div class="gastos form">
     <?php echo $this->Form->create('Gasto', array( 'type' => 'file', 'id'=>'GastoAddForm')); ?>
@@ -168,6 +168,4 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
     <?php echo $this->Form->end(); ?>
 </div>
 
-<div>
-    <?php echo $this->Html->script('/account/js/gastos_add'); ?>
-</div>
+    <?php echo $this->Html->script('/account/js/gastos_add', true); ?>
