@@ -94,10 +94,7 @@ if (empty($gastos)) {
                     </td>
 
                     <td class="center image">
-                        <?php
-                        
-                       echo $this->Html->imageMedia( $gasto['Media'], array('width' => 48, 'alt' => 'Bajar', 'class'=>''));
-                        ?>
+                        <?php echo $this->Html->mediaLink( $gasto['Media'], array('width'=>'48') );?>                       
                     </td>
                     
                     

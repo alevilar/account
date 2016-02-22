@@ -115,7 +115,8 @@
                     
                     
                     echo "<td class='center image'>";
-                    echo $this->Html->imageMedia( $g['Media'], array('class' => 'thumb', 'width' => '68')) ;
+                    echo $this->Html->mediaLink( $g['Media'], array('width'=>'68') );
+                    //echo $this->Html->imageMedia( $g['Media'], array('class' => 'thumb', 'width' => '68')) ;
                     echo "</td>";
 
                     if (!empty($g['TipoFactura'])) {
