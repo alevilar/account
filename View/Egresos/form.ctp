@@ -29,7 +29,14 @@ echo $this->Form->input('fecha', array('type' => 'datetime'));
 
 
 echo $this->Form->input('tipo_de_pago_id');
-echo $this->Form->input('total', array('type' => 'number', 'step'=>'any'));
+
+$disabled = true;
+$after = '<span class="text-danger">No se puede editar el importe de un pago</span>';
+if ( empty( $this->request->data['Egreso']['id'] ) ) {
+    $disabled = false;
+    $after = '<span class="text-info">¡Cuidado! Una vez guardado el pago no podrá modificar el importe total</span>';
+}
+echo $this->Form->input('total', array('type' => 'number', 'step'=>'any', 'disabled' => $disabled, 'after'=>$after));
 
 ?> 
     </div>

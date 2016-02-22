@@ -1,5 +1,9 @@
 <?php //echo $this->Html->css('/account/css/style'); ?>
+
 <h1>Viendo detalle del Cierre <small><cite>"<?php echo $cierre['Cierre']['name'] ?>"</cite></small></h1>
+
+<?php echo $this->Html->link( 'Modificar Nombre del Cierre', array('action'=>'edit', $cierre['Cierre']['id']), array('class'=>'btn btn-lg btn-info pull-right') );?>
+
 
 <p>
     creado: <?php echo date('d-m-Y H:i', strtotime($cierre['Cierre']['created'])); ?>

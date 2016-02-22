@@ -33,6 +33,19 @@ class CierresController extends AccountAppController
             }
         }
     }
+
+
+    function edit( $id)
+    {        
+        if ( $this->request->is(array('post', 'put')) && !empty($this->request->data)) {
+            if ($this->Cierre->save($this->request->data)) {
+                $this->Session->setFlash('Se Guardó correctamente');
+            } else {
+                $this->Session->setFlash('Fallo al guardar');
+            }
+        }
+        $this->request->data = $this->Cierre->read(null, $id);
+    }
     
     function view( $id ) {
         if ( empty($id) ) {

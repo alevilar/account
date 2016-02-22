@@ -25,8 +25,9 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
             <th>#</th>
             <th>Importe</th>
             <th>Fecha</th>
-            <th>Listado de Gastos Pagados</th>
-            <th>Observacion</th>
+            <th>Cant. Gastos</th>
+            <th>Listado de Gastos descontados en este Pago</th>
+            <th>Obs.</th>
             <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
@@ -47,7 +48,8 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
 
                 <td><?php echo $this->Time->format($g['Egreso']['fecha'], '%d %b'); ?></td>
 
-                
+
+                <td><?php echo count($g['Gasto']); ?></td>                
                 
                 <td>
                     <table class="table table-condensed">
@@ -70,7 +72,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
 
                             foreach ( $g['Gasto'] as $gasto ) {
                                 if ( !empty($gasto['Proveedor']) ) {
-                                    $proveedor = $gasto['Proveedor']['name'] . ', ';
+                                    $proveedor = $gasto['Proveedor']['name'];
                                 }
                                 if ( !empty($gasto['TipoFactura']) ) {
                                     $tipoFactura = $gasto['TipoFactura']['name'];
