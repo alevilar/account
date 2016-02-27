@@ -24,6 +24,7 @@ echo $this->Form->end();
 <p>
 <table class="table">
 <tr>
+	<th>Rubro</th>
 	<th><?php echo $this->Paginator->sort('name',__('Nombre'));?></th>
 	<th><?php echo $this->Paginator->sort('cuit',__('CUIT'));?></th>
 	<th><?php echo $this->Paginator->sort('mail',__('Correo Electrónico'));?></th>
@@ -41,6 +42,18 @@ foreach ($proveedores as $proveedor):
 	}
 ?>
 	<tr<?php echo $class;?>>
+		<td>
+			<?php 
+				$rubros = '';
+				if (!empty($proveedor['Rubro'])) {
+					foreach ($proveedor['Rubro'] as $rubro) {
+						$rubros .= $rubro['name'].', ';
+					}
+					$rubros = trim( trim($rubros), ',' );
+				}
+				echo $rubros;
+				?>
+		</td>
 		<td>
 			<?php echo $proveedor['Proveedor']['name']; ?>
 		</td>

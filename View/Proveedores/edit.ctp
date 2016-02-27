@@ -10,6 +10,7 @@
 		echo $this->Form->input('mail');
 		echo $this->Form->input('telefono');
 		echo $this->Form->input('domicilio');
+		echo $this->Form->input('Rubro');
 	?>
 <?php echo $this->Form->end('Guardar');?>
 </fieldset>

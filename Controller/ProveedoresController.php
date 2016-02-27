@@ -15,6 +15,9 @@ class ProveedoresController extends AccountAppController {
             $this->Paginator->settings['conditions']['or']['UPPER(Proveedor.name) LIKE'] = "%".strtoupper($this->request->data['Proveedor']['buscar_proveedor'])."%";
             $this->Paginator->settings['conditions']['or']['Proveedor.cuit LIKE'] = "%".$this->request->data['Proveedor']['buscar_proveedor']."%";
         }
+
+        $this->Paginator->settings['contain'] = array('Rubro');
+
         if ($this->request->is('ajax')) {
             $this->Paginator->settings['limit'] = 999;
         }
@@ -39,6 +42,8 @@ class ProveedoresController extends AccountAppController {
 				$this->Session->setFlash(__('The Proveedor could not be saved. Please, try again.'));
 			}
 		}
+		$rubros = $this->Proveedor->Rubro->find('list');
+		$this->set(compact('rubros'));
 	}
 
 	public function edit($id = null) {
@@ -57,6 +62,9 @@ class ProveedoresController extends AccountAppController {
 		if (empty($this->request->data)) {
 			$this->request->data = $this->Proveedor->read(null, $id);
 		}
+
+		$rubros = $this->Proveedor->Rubro->find('list');
+		$this->set(compact('rubros'));
 	}
 
 	public function delete($id = null) {

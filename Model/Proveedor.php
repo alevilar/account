@@ -33,6 +33,24 @@ class Proveedor extends AccountAppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	public $hasMany = array( 'Account.Gasto' );
+
+
+    public $hasAndBelongsToMany = array(
+        'Rubro' => array(
+            'className' => 'Compras.Rubro',
+            'joinTable' => 'compras_proveedores_rubros',
+            'foreignKey' => 'proveedor_id',
+            'associationForeignKey' => 'rubro_id',
+            'unique' => 'keepExisting',
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+        )
+    );
+
         
     public function validate_cuit(){
         if (!empty($this->data['Proveedor']['cuit'])) {
