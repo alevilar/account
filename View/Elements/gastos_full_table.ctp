@@ -1,21 +1,32 @@
-<style id="style-ss">
-    .impuestos{
-        display: none;
-    }
-    
+<style>
     .cq-hide{
         display: none;
     }
 
-    .proveedor-desc{
+    
+
+</style>
+
+
+
+<!-- style que trabaja en conjunto con JS para mostrar los impuestos en la tabla de listado -->
+<style id="style-ss">
+    table.listado-gastos .impuestos{
+        display: none;
+    }
+
+    table.listado-gastos .proveedor-desc{
         font-size: 12px;
         text-align: center;
     }
 
-    .obs{
+    table.listado-gastos .obs{
         font-size: 10px;
     }
+    
 </style>
+
+
 
 
 
@@ -25,7 +36,7 @@
     
 <div class="alert alert-info dismiss">Se encontraron <?php echo count($gastos);?> Gastos</div>
 
-    <table class="table table-hover">
+    <table class="table table-hover listado-gastos">
         <thead>
             <tr>    
                 <th rowspan="2"><input type="checkbox" value="0" id="impt-gastos-select-all"/></th>
@@ -213,6 +224,7 @@
                 show = !show;
             }
             $impu.addClass('active');
+            return false;
         });
 
         var $inputs = $('tbody', '#tabla-de-gastos').find('input[type=checkbox]');

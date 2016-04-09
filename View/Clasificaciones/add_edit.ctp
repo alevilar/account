@@ -1,7 +1,7 @@
 <?php
 //debug($this);
 
-echo $this->Form->create('Clasificacion', array('action'=>$this->action, $clasificacion_id));
+echo $this->Form->create('Clasificacion', array('url'=>array('action'=>$this->action), $clasificacion_id));
 
 echo $this->Form->input('id', array('value' => $clasificacion_id));
 echo $this->Form->input('parent_id', array('options'=>$clasificaciones, 'empty'=>'Seleccionar'));

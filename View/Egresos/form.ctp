@@ -20,7 +20,7 @@ if ( !empty($this->request->data['Egreso']['id'])) {
 <div class="row">
     <div class="col-md-6">
 <?php
-echo $this->Form->create('Egreso', array('action' => 'save', 'data-ajax' => "false", 'type' => 'file'));
+echo $this->Form->create('Egreso', array('url' => array('action'=>'save'), 'data-ajax' => "false", 'type' => 'file'));
 
 echo $this->Form->input('id');
 
