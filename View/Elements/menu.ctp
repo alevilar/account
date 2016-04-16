@@ -68,7 +68,4 @@ if ($this->name == 'Clasificaciones' && $this->action == 'index') {
          <li class="<?php echo $c8 ?>">
             <?php echo $this->Html->link('Clasificaciones', array('plugin'=>'account', 'controller'=>'clasificaciones', 'action'=>'index')) ?>
         </li>
-    </ul>      
 
-
-</nav>
