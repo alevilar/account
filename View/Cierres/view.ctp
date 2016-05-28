@@ -1,8 +1,10 @@
-<?php //echo $this->Html->css('/account/css/style'); ?>
+<?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Cierre'));?>
 
+<?php //echo $this->Html->css('/account/css/style'); ?>
+<div class="content-white">
 <h1>Viendo detalle del Cierre <small><cite>"<?php echo $cierre['Cierre']['name'] ?>"</cite></small></h1>
 
-<?php echo $this->Html->link( 'Modificar Nombre del Cierre', array('action'=>'edit', $cierre['Cierre']['id']), array('class'=>'btn btn-lg btn-info pull-right') );?>
+<?php echo $this->Html->link( 'Modificar Nombre del Cierre', array('action'=>'edit', $cierre['Cierre']['id']), array('class'=>'btn btn-lg btn-info pull-right btn-edit') );?>
 
 
 <p>
@@ -30,3 +32,4 @@ echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__
 ?>
 
 <?php echo $this->element('gastos_full_table'); ?>
+</div>

@@ -1,3 +1,13 @@
+<?php $this->append('paxapos-main-menu');?>
+    <?php echo $this->element("Risto.paxapos_main_menu/tenant_home_btn");?>
+    <br>
+    <?php echo $this->element("Account.paxapos_context_menu");?>
+<?php $this->end();?>
+
+<?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Pago'));?>
+
+
+<div class="content-white">
 <h1>Listado de Pagos</h1>
 
 <?php
@@ -103,7 +113,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                     <?php
                     echo $this->Html->link('Ver', array('action' => 'view', $g['Egreso']['id']));
                     echo "<br>";
-                    echo $this->Html->link('Editar', array('action' => 'edit', $g['Egreso']['id']));
+                    echo $this->Html->link('Editar', array('action' => 'edit', $g['Egreso']['id']), array('class'=>'btn-edit'));
                     echo "<br>";
                     echo $this->Html->link('Eliminar', array('action'=>'delete', $g['Egreso']['id']), null, sprintf(__('¿Está seguro que desea borrar el pago de %s', true), $this->Number->currency($g['Egreso']['total'])));
                     ?>
@@ -126,3 +136,4 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
      | 	<?php echo $this->Paginator->numbers();?>
     	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
     </div>
+</div>

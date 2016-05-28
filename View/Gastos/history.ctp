@@ -1,6 +1,20 @@
+<?php $this->append('paxapos-main-menu');?>
+    <?php echo $this->element("Risto.paxapos_main_menu/tenant_home_btn");?>
+    <br>
+   
+    <?php echo $this->element("Account.paxapos_context_menu");?>
+<?php $this->end();?>
+
+
+
+
+<?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Gasto', 'size'=>'modal-lg'));?>
+
 <?php echo $this->Html->css('/account/css/style');?>
+
+<div class="content-white">
 <div class="btn-group pull-right">
-<?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-lg btn-success')) ?>
+<?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-lg btn-success btn-add')) ?>
 </div>
 
 <h1>Listado de Gastos</h1>
@@ -67,6 +81,7 @@ echo $this->Html->link('<span class="glyphicon glyphicon-download-alt"></span> '
 
 <?php echo $this->element('gastos_full_table'); ?>
 
+</div>
 
 <script type="text/javascript">
     $('#CancelBtn').bind('click', function() {

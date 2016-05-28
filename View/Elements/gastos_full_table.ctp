@@ -29,8 +29,9 @@
 
 
 
-
+<?php if (!empty($tipo_impuestos)) { ?>
 <a href="#" id="btn-mostrar-impuestos" class="btn btn-link" style="float: right">Mostrar Impuestos</a>
+<?php } ?>
 
 <div id="tabla-de-gastos">      
     
@@ -40,6 +41,9 @@
         <thead>
             <tr>    
                 <th rowspan="2"><input type="checkbox" value="0" id="impt-gastos-select-all"/></th>
+                <?php if (!empty($mostrarEgresoInvolucrado)) {?>
+                    <th rowspan="2" class="bg-success">Pago</th>
+                <?php } ?>
                 <th rowspan="2">#</th>
                 <th rowspan="2">Clasificación</th>
                 <th rowspan="2">Fecha</th>
@@ -49,8 +53,10 @@
                 <th rowspan="2" data-priority="2">N° Factura</th>
                 <th rowspan="2" data-priority="1">$Neto</th>
                 <?php
-                foreach ($tipo_impuestos as $ti) {
-                    echo "<th colspan='2'  data-priority='5' class='impuestos'>$ti</th>";
+                if (!empty($tipo_impuestos)) {
+                    foreach ($tipo_impuestos as $ti) {
+                        echo "<th colspan='2'  data-priority='5' class='impuestos'>$ti</th>";
+                    }
                 }
                 ?>
                 <th class="total" rowspan="2">$Total</th>
@@ -60,8 +66,10 @@
             </tr>
             <tr>                
                 <?php
-                foreach ($tipo_impuestos as $ti) {
-                    echo "<td class='impuestos'>\$Neto</td><td class='impuestos'>\$Imp.</td>";
+                if (!empty($tipo_impuestos)) {
+                    foreach ($tipo_impuestos as $ti) {
+                        echo "<td class='impuestos'>\$Neto</td><td class='impuestos'>\$Imp.</td>";
+                    }
                 }
                 ?>
             </tr>
@@ -70,7 +78,31 @@
         <tbody>
             <?php
             foreach ($gastos as $g) {
+                if (empty($g['Gasto'])) {
+                    // falback cuando viene de un contain de otro Model
+
+                    $g['Gasto']['id'] = $g['id'];
+                    $g['Gasto']['cierre_id'] = $g['cierre_id'];
+                    $g['Gasto']['proveedor_id'] = $g['proveedor_id'];
+                    $g['Gasto']['clasificacion_id'] = $g['clasificacion_id'];
+                    $g['Gasto']['tipo_factura_id'] = $g['tipo_factura_id'];
+                    $g['Gasto']['factura_nro'] = $g['factura_nro'];
+                    $g['Gasto']['factura_nro'] = $g['factura_nro'];
+                    $g['Gasto']['fecha'] = $g['fecha'];
+                    $g['Gasto']['importe_neto'] = $g['importe_neto'];
+                    $g['Gasto']['importe_total'] = $g['importe_total'];
+                    $g['Gasto']['observacion'] = $g['observacion'];
+                    $g['Gasto']['file'] = $g['file'];
+                    $g['Gasto']['media_id'] = $g['media_id'];
+                    $g['Gasto']['created'] = $g['created'];
+                    $g['Gasto']['modified'] = $g['modified'];                   
+                }
+                
                 $classpagado = 'pagado';
+
+                if (empty($g['Gasto']['importe_pagado'])) {
+                    $g['Gasto']['importe_pagado'] = ClassRegistry::init('Account.Gasto')->importePagado($g['Gasto']['id']);
+                }
                 $faltaPagar = abs($g['Gasto']['importe_total']) - abs($g['Gasto']['importe_pagado']);
                 if ($g['Gasto']['importe_pagado'] < $g['Gasto']['importe_total']) {
                     $classpagado = 'danger';
@@ -101,6 +133,14 @@
                     }
 
                     echo "<td>$meterInput</td>";
+
+                    if (!empty($g['AccountEgresosGasto'])) {
+
+                        echo '<td class="bg-success">'.$this->Number->currency($g['AccountEgresosGasto']['importe']).'</td>';
+                    }
+
+
+
                     echo "<td>" . $g['Gasto']['id'] . "</td>";
                     if (!empty($g['Clasificacion'])) {
                         echo "<td>" . $g['Clasificacion']['name'] . "</td>";
@@ -141,16 +181,19 @@
                     ?>
 
                     <?php
-                    foreach ($tipo_impuestos as $tid => $ti) {
-                        if (!empty($g['Impuesto'])) {
-                            echo "<td class='impuestos'>" . mostrarNetoDe($tid, $g['Impuesto']) . "</td>";
-                        } else {
-                            echo "<td class='impuestos'></td>";
-                        }
-                        if (!empty($g['Impuesto'])) {
-                            echo "<td class='impuestos'>" . mostrarImpuestoDe($tid, $g['Impuesto']) . "</td>";
-                        } else {
-                            echo "<td class='impuestos'></td>";
+                    if (!empty($tipo_impuestos)) {
+
+                        foreach ($tipo_impuestos as $tid => $ti) {
+                            if (!empty($g['Impuesto'])) {
+                                echo "<td class='impuestos'>" . mostrarNetoDe($tid, $g['Impuesto']) . "</td>";
+                            } else {
+                                echo "<td class='impuestos'></td>";
+                            }
+                            if (!empty($g['Impuesto'])) {
+                                echo "<td class='impuestos'>" . mostrarImpuestoDe($tid, $g['Impuesto']) . "</td>";
+                            } else {
+                                echo "<td class='impuestos'></td>";
+                            }
                         }
                     }
 
@@ -165,6 +208,7 @@
                             'controller' => 'egresos',
                             'action' => 'add', $g['Gasto']['id']), array(
                             'data-ajax' => 'false',
+                            'class' => 'btn-edit'
                         ));
                     }
                     ?>
@@ -184,7 +228,7 @@
                                 <?php if ( empty($g['Gasto']['cierre_id']) ) { ?>
                                 <li><?php echo $this->Html->link('Editar', array(
                                     'controller' => 'gastos',
-                                    'action' => 'edit', $g['Gasto']['id']), array('data-ajax' => 'false')) ?></li>
+                                    'action' => 'edit', $g['Gasto']['id']), array('data-ajax' => 'false', 'class'=>'btn-edit')) ?></li>
                                 <li><?php echo $this->Html->link('Borrar', array(
                                     'controller' => 'gastos',
                                     'action' => 'delete', $g['Gasto']['id'])) ?></li>
@@ -203,7 +247,7 @@
 </div>
 
 
-
+<?php $this->append("script") ?>
 <script type="text/javascript">
 
 
@@ -268,3 +312,4 @@
     })();
 
 </script>
+<?php $this->end();?>

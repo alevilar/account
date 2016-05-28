@@ -21,6 +21,7 @@ class ClasificacionesController extends AccountAppController
             } else {
                 $this->Session->setFlash('Error al guardar la clasificación', 'Risto.flash_error');
             }
+            $this->redirect($this->referer());
         }
 
         if (!empty($id)) {

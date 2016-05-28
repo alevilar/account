@@ -1,6 +1,9 @@
-<div class="tipoImpuestos index">
+<?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Tipo de Impuesto'));?>
+
+
+<div class="tipoImpuestos index content-white">
 	<div class="btn-group pull-right">
-	<?php echo $this->Html->link(__('Crear Tipo de impuesto'), array('action' => 'add'), array('class'=>'btn btn-success btn-lg')); ?>
+	<?php echo $this->Html->link(__('Crear Tipo de impuesto'), array('action' => 'add'), array('class'=>'btn btn-success btn-lg btn-add')); ?>
 	</div>
 <h2><?php echo  __('Tipo de Impuestos');?></h2>
 <p>
@@ -34,13 +37,32 @@ foreach ($tipoImpuestos as $tipoImpuesto):
 			<?php echo $tipoImpuesto['TipoImpuesto']['tiene_impuesto']?'✓':''; ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $tipoImpuesto['TipoImpuesto']['id'])); ?>
-			<?php echo $this->Html->link(__('Borrar'), array('action' => 'delete', $tipoImpuesto['TipoImpuesto']['id']), null, sprintf(__('¿Esta seguro que desea eliminar el tipo de impuesto "%s"?'), $tipoImpuesto['TipoImpuesto']['name'])); ?>
+		
+			<!-- Split button -->
+			<div class="btn-group">
+
+
+				<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $tipoImpuesto['TipoImpuesto']['id']), array('class'=>'btn btn-default btn-sm btn-edit')); ?>
+
+
+			  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    <span class="caret"></span>
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <ul class="dropdown-menu">
+
+
+
+			    <li class="">
+			    	<?php echo $this->Form->postLink( __('Borrar'), array('action'=>'delete', $tipoImpuesto['TipoImpuesto']['id']), array('class'=>' btn-sm'), __('¿Está seguro que desea eliminar: %s?', $tipoImpuesto['TipoImpuesto']['name'])); ?>
+		    	</li>
+			  </ul>
+			</div>
+
 		</td>
 	</tr>
 <?php endforeach; ?>
 </table>
-</div>
 		<p>
     	<?php
     	echo $this->Paginator->counter(array(
@@ -54,3 +76,4 @@ foreach ($tipoImpuestos as $tipoImpuesto):
      | 	<?php echo $this->Paginator->numbers();?>
     	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
     </div>
+</div>

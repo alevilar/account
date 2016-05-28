@@ -1,7 +1,8 @@
 <?php 
 echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', true);
 ?>
-<div class="gastos form">
+
+<div class="gastos form content-white">
     <?php echo $this->Form->create('Gasto', array( 'type' => 'file', 'id'=>'GastoAddForm')); ?>
     <?php echo $this->Form->hidden('id'); ?>
     <?php echo $this->Form->hidden('pagar', array('value' => true)); ?>
@@ -168,4 +169,4 @@ echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', t
     <?php echo $this->Form->end(); ?>
 </div>
 
-    <?php echo $this->Html->script('/account/js/gastos_add', true); ?>
+<?php echo $this->Html->script('/account/js/gastos_add', true); ?>

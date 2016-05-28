@@ -40,12 +40,13 @@ class EgresosController extends AccountAppController
 
     public function edit($egreso_id)
     {
-        if (!empty($this->request->data)) {
+        if ($this->request->is(array('post', 'put')) && !empty($this->request->data)) {
             if (!$this->Egreso->save($this->request->data )) {
-                $this->Session->setFlash('El pago no pudo ser guardado');
+                $this->Session->setFlash('El pago no pudo ser guardado', 'Risto.flash_error');
             } else {
                 $this->Session->setFlash('El Pago fue guardado');
             }
+            $this->redirect($this->referer());
         }
         $this->request->data = $this->Egreso->read(null, $egreso_id);
         $this->set('tipoDePagos', $this->Egreso->TipoDePago->find('list'));
@@ -112,17 +113,19 @@ class EgresosController extends AccountAppController
 
     public function save()
     {
-        if ( !empty($this->request->data) ) {
+        if ( $this->request->is(array('post', 'put')) && !empty($this->request->data) ) {
             $this->Egreso->create();
-            if ($this->Egreso->save($this->request->data)) {
+            $fields = array('fecha','tipo_de_pago_id','observacion', 'fecha');
+            if (isset($this->data['Egreso']['total'])){
+                $fields[] = 'total';
+            }
+            if ($this->Egreso->save($this->request->data, true, $fields)) {
                 $this->Session->setFlash('El Pago fue guardado correctamente');
-                $this->redirect(array('controller' => 'gastos', 'action' => 'index'));
             } else {
                 debug($this->Egreso->validationErrors);die;
                 $this->Session->setFlash('Error al guardar el pago', 'Risto.flash_error');
-                $this->redirect($this->referer());
-                
             }
+            $this->redirect($this->referer());
         }
     }
 
@@ -134,9 +137,21 @@ class EgresosController extends AccountAppController
         $this->Egreso->id = $id;
         $this->Egreso->contain(array(
             'TipoDePago',
-            'Gasto.Proveedor'
+            'Gasto' => array(
+                    'Proveedor',
+                    'Clasificacion',
+                    'Media',
+                    'TipoFactura',
+                    'Cierre',
+                    'TipoImpuesto'
+                )
         ));
-        $this->set('egreso', $this->Egreso->read());
+
+        
+        $egreso = $this->Egreso->read();
+        $gastos = Hash::extract($egreso, 'Gasto.{n}');
+
+        $this->set(compact( 'egreso', 'gastos'));
     }
     
     
@@ -153,7 +168,7 @@ class EgresosController extends AccountAppController
             }
         }
         $this->Session->setFlash(__('The Egreso could not be deleted. Please, try again.', true));
-        $this->redirect(array('action' => 'history'));
+        $this->redirect($this->referer);
     }
 
 }

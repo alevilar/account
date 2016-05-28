@@ -1,7 +1,18 @@
+<?php $this->append('paxapos-main-menu');?>
+    <?php echo $this->element("Risto.paxapos_main_menu/tenant_home_btn");?>
+    <br>
+    <?php echo $this->element("Account.paxapos_context_menu");?>
+<?php $this->end();?>
+
+<?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Gasto', 'size'=>'modal-lg'));?>
+
+
 <?php echo $this->Html->css('/account/css/style') ?>
+
+<div class="content-white">
 <div>
 
-     <?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-lg btn-success pull-right')) ?>
+     <?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-lg btn-success pull-right btn-add')) ?>
     <h1>Pendientes de Pago</h1>
 
 
@@ -116,17 +127,18 @@ if (empty($gastos)) {
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <?php
-                                    echo $this->Html->link(__('Pagar', true), array(
+                                    echo $this->Html->link(__('Pagar'), array(
                                         'controller' => 'egresos',
                                         'action' => 'add', $gasto['Gasto']['id']), array(
                                         'data-ajax' => 'false',
+                                        'class' => 'btn-edit'
                                     ));
                                     ?>
                                 </li>
 
                                 <li>
                                     <?php
-                                    echo $this->Html->link(__('Ver', true), array(
+                                    echo $this->Html->link(__('Ver'), array(
                                         'action' => 'view', $gasto['Gasto']['id']), array(
                                         'data-ajax' => 'false',
                                     ));
@@ -135,16 +147,17 @@ if (empty($gastos)) {
 
                                 <li>
                                     <?php
-                                    echo $this->Html->link(__('Editar', true), array(
+                                    echo $this->Html->link(__('Editar'), array(
                                         'action' => 'edit', $gasto['Gasto']['id']), array(
                                         'data-ajax' => 'false',
+                                        'class' => 'btn-edit',
                                     ));
                                     ?>
                                 </li>
 
                                 <li>
                                     <?php
-                                    echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $gasto['Gasto']['id']), array('class' => 'ajaxlink'), sprintf(__('Seguro queres borrar el # %s?', true), $gasto['Gasto']['id']));
+                                    echo $this->Html->link(__('Borrar'), array('action' => 'delete', $gasto['Gasto']['id']), array('class' => 'ajaxlink'), __('Seguro queres borrar el # %s?', $gasto['Gasto']['id']));
                                     ?>
                                 </li>
                             </ul>
@@ -160,7 +173,10 @@ if (empty($gastos)) {
 echo $this->Form->end();
 ?>
 
+</div>
 
+
+<?php $this->start('script');?>
 <script>
     (function($) {
         var $inputs = $('input[type="checkbox"]', '#EgresoAddForm');
@@ -179,6 +195,25 @@ echo $this->Form->end();
             }
         });
         
+
+        $("#EgresoAddForm").on('submit', function(e){
+
+            e.preventDefault();
+
+            var url = $("#EgresoAddForm").attr('action');
+
+            var datastring = $("#EgresoAddForm").serialize();
+            $('#editModal').modal('show');
+            
+            
+
+            $.post( url, datastring,function( data ) {
+              $(".modal-body", '#editModal').html(data);
+            });
+            return false;
+        });
     })(jQuery);
 
 </script>
+
+<?php $this->end();?>

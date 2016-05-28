@@ -33,17 +33,19 @@ class ProveedoresController extends AccountAppController {
 	}
 
 	public function add() {
-		if (!empty($this->request->data)) {
+		if ($this->request->is(array('post', 'put')) && !empty($this->request->data)) {
 			$this->Proveedor->create();
 			if ($this->Proveedor->save($this->request->data)) {
 				$this->Session->setFlash(__('The Proveedor has been saved'));
-                                unset($this->request->data);
+                unset($this->request->data);
 			} else {
 				$this->Session->setFlash(__('The Proveedor could not be saved. Please, try again.'));
 			}
+			$this->redirect($this->referer());
 		}
 		$rubros = $this->Proveedor->Rubro->find('list');
 		$this->set(compact('rubros'));
+		$this->render('form');
 	}
 
 	public function edit($id = null) {
@@ -65,6 +67,7 @@ class ProveedoresController extends AccountAppController {
 
 		$rubros = $this->Proveedor->Rubro->find('list');
 		$this->set(compact('rubros'));
+		$this->render('form');
 	}
 
 	public function delete($id = null) {

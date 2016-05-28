@@ -41,10 +41,12 @@ class CierresController extends AccountAppController
             if ($this->Cierre->save($this->request->data)) {
                 $this->Session->setFlash('Se Guardó correctamente');
             } else {
-                $this->Session->setFlash('Fallo al guardar');
+                $this->Session->setFlash('Fallo al guardar', 'Risto.flash_error');
             }
+            $this->redirect($this->referer());
         }
         $this->request->data = $this->Cierre->read(null, $id);
+
     }
     
     function view( $id ) {

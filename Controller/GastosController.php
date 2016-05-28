@@ -87,12 +87,12 @@ class GastosController extends AccountAppController
 
                 if (!empty($this->request->data['Gasto']['pagar'])) {
                     $this->redirect(array('controller' => 'egresos', 'action' => 'add', $this->Gasto->id));
-                } else {
-                    $this->redirect(array('controller' => 'gastos', 'action' => 'index'));
                 }
+                
             } else {
                 $this->Session->setFlash("Error al guardar el gasto", 'Risto.flash_error');
             }
+            $this->redirect($this->referer);
         }
         $this->request->data['Gasto']['fecha'] = date('Y-m-d', strtotime('now'));
         $tipoFacturas = $this->Gasto->TipoFactura->find('list');
@@ -175,7 +175,7 @@ class GastosController extends AccountAppController
             }
         }
         $this->Session->setFlash(__('The Gasto could not be deleted. Please, try again.', true));
-        $this->redirect(array('action' => 'index'));
+        $this->redirect($this->referer);
     }
 
 }
