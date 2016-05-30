@@ -86,13 +86,13 @@ class GastosController extends AccountAppController
                 $this->Session->setFlash(__('The Gasto has been saved', true));
 
                 if (!empty($this->request->data['Gasto']['pagar'])) {
-                    $this->redirect(array('controller' => 'egresos', 'action' => 'add', $this->Gasto->id));
+                    $this->redirect($this->referer());
                 }
                 
             } else {
                 $this->Session->setFlash("Error al guardar el gasto", 'Risto.flash_error');
             }
-            $this->redirect($this->referer);
+            $this->redirect($this->referer());
         }
         $this->request->data['Gasto']['fecha'] = date('Y-m-d', strtotime('now'));
         $tipoFacturas = $this->Gasto->TipoFactura->find('list');
@@ -118,7 +118,7 @@ class GastosController extends AccountAppController
             if ($this->Gasto->save($this->request->data)) {
                 $this->Session->setFlash(__('The Gasto has been saved'));
 
-                $this->redirect(array('action' => 'index'));
+                $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(__('The Gasto could not be saved. Please, try again.'), 'Risto.flash_error');
                 debug($this->Gasto->validationErrors);
@@ -171,7 +171,7 @@ class GastosController extends AccountAppController
         if ($this->Gasto->delete($id)) {
             $this->Session->setFlash(__('Gasto deleted', true));
             if ( !$this->RequestHandler->isAjax() ) {
-                $this->redirect(array('action' => 'index'));
+                $this->redirect($this->referer());
             }
         }
         $this->Session->setFlash(__('The Gasto could not be deleted. Please, try again.', true));
