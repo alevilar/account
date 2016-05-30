@@ -1,8 +1,4 @@
-<?php $this->append('paxapos-main-menu');?>
-    <?php echo $this->element("Risto.paxapos_main_menu/tenant_home_btn");?>
-    <br>
-    <?php echo $this->element("Account.paxapos_context_menu");?>
-<?php $this->end();?>
+
 
 <?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Pago'));?>
 
