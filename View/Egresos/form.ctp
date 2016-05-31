@@ -27,6 +27,7 @@
     <?php
    
     echo $this->Form->input('id');
+    echo $this->Form->hidden('redirect');
 
 
     echo $this->Form->input('fecha', array('type' => 'datetime'));

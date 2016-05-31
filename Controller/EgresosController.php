@@ -101,7 +101,7 @@ class EgresosController extends AccountAppController
         } else {
             $this->pageTitle = 'Pagando ' . count($gastos) . ' Gasto';
         }
-        
+        $this->request->data['Egreso']['redirect'] = $this->referer();
         $this->request->data['Egreso']['fecha'] = $date = date('Y-m-d H:i', strtotime('now'));
         $this->request->data['Egreso']['total'] = $suma_gastos;
         $this->set('tipoDePagos', $this->Egreso->TipoDePago->find('list'));
@@ -125,7 +125,11 @@ class EgresosController extends AccountAppController
                 debug($this->Egreso->validationErrors);die;
                 $this->Session->setFlash('Error al guardar el pago', 'Risto.flash_error');
             }
-            $this->redirect($this->referer());
+            $redirect = $this->referer();
+            if ( !empty($this->request->data['Egreso']['redirect']) ) {
+                $redirect = $this->request->data['Egreso']['redirect'];
+            }
+            $this->redirect( $redirect );
         }
     }
 
