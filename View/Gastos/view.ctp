@@ -2,6 +2,7 @@
 
 <?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Gasto', 'size'=>'modal-lg'));?>
 
+<?php echo $this->element('Risto.image-modal-zoom');?>
 
 
 <div class="content-white">
@@ -27,8 +28,14 @@
 
 <div class="row">
     <div class="col-sm-2">
-        <?php echo $this->Html->mediaLink( $gasto['Media'], array('width'=>'200', 'class'=>'img-responsive img-thumbnail') );?>
+        <?php
+        echo $this->Html->mediaLink(  $gasto['Media'], array(
+                                        'width'=>'1000', 
+                                        'class'=>'img-responsive img-thumbnail', 
+                                        'img-modal'=>true) 
+                                    );
 
+        ?>
         <div class="clearfix"></div>
 
         <br>
@@ -101,12 +108,24 @@
         <ul class="list-group">
         <?php foreach ($gasto['Egreso'] as $pags){ ?>    
             <li class="list-group-item">
-                <span class="tipo_de_pago"><?php echo $this->Html->imageMedia($pags['TipoDePago']['media_id'], array('alt'=>$pags['TipoDePago']['name'], 'title'=>$pags['TipoDePago']['name'])); ?></span>
+                <span class="tipo_de_pago">
+                    <?php echo $this->Html->imageMedia($pags['TipoDePago']['media_id'], array('alt'=>$pags['TipoDePago']['name'], 'title'=>$pags['TipoDePago']['name'])); ?>
+                </span>
+
                 <small>Fecha:</small> <?php echo date('d-m-y', strtotime($pags['fecha']))?>
                 &nbsp;&nbsp;<small>Importe:</small> <?php echo $this->Number->currency($pags['AccountEgresosGasto']['importe'])?>
                 <?php echo $this->Html->link('ir al pago', array('controller'=>'egresos', 'action'=>'view', $pags['id']), array('class'=>'btn btn-default')) ?>
                 
-                <?php echo $this->Html->imageMedia( $pags['media_id'], array('height'=>'40px')); ?>
+                <?php 
+
+                echo $this->Html->mediaLink( $pags['media_id'], array(
+                                                'style' => 'height: 40px; width: auto', 
+                                                'width' => 1000,
+                                                'img-modal'=>true
+                                                )
+                                            ); 
+
+                ?>
 
                 <?php echo $this->Html->link('X', array('controller'=>'egresos', 'action'=>'delete', $pags['AccountEgresosGasto']['egreso_id']),
                                     array('class'=>'btn btn-danger pull-right')

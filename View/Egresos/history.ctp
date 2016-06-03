@@ -1,4 +1,5 @@
 
+<?php echo $this->element('Risto.image-modal-zoom');?>
 
 <?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Pago'));?>
 
@@ -8,7 +9,7 @@
 
 <?php
 echo $this->Html->css('/account/css/style');
-echo $this->element('form_mini_year_month_search');
+echo $this->element('egresos_search');
 
 $urlTex = '';
 foreach ($this->params['url'] as $u => $v) {
@@ -102,7 +103,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                 <td><?php echo $g['Egreso']['observacion']; ?></td>
 
                 <td>
-                     <?php echo $this->Html->imageMedia( $g['Media'], array('height'=>'40px')); ?>
+                     <?php echo $this->Html->mediaLink( $g['Egreso']['media_id'], array('height'=>'40px', 'img-modal'=>true)); ?>
                 </td>
 
                 <td>

@@ -80,8 +80,8 @@ class Egreso extends AccountAppModel {
     			'deleteQuery' => '',
     			'insertQuery' => ''
                     ),
-            
 	);
+
 
 
 
@@ -108,7 +108,10 @@ class Egreso extends AccountAppModel {
             'type' => 'value',
             'field' => 'DATE(Egreso.fecha) <='
             ),
-        'importe_neto' => array(
+        'total' => array(
+            'type' => 'value',
+            ),
+         'tipo_de_pago_id' => array(
             'type' => 'value',
             ),
         );
@@ -218,10 +221,13 @@ class Egreso extends AccountAppModel {
         
         function beforeSave($options = array())
         {
-            parent::beforeSave($options);
-           
+        	
+            if ( !parent::beforeSave($options) ) {
+            	return false;
+            }
+
+       		$this->unbindModel( array('hasAndBelongsToMany' => array('Gasto')) );
            // list($join) = $this->joinModel($this->hasAndBelongsToMany['Gasto']['with']);
-            $this->unbindModel( array('hasAndBelongsToMany' => array('Gasto')) );
 //            $this->bindModel( array('hasMany' => array($join)) );
             
             return true;

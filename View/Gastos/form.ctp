@@ -30,21 +30,7 @@ echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', t
             echo $this->Form->input('tipo_factura_id');
             echo $this->Form->input('factura_nro', array('required' => false));
             
-            //echo $this->Form->hidden('file');
-            echo $this->Form->input('media_file',array('label'=>'PDF, Imagen, Archivo', 'type'=>'file'));
-            //echo $this->Form->input('file', array('type'=>'file', 'accept'=> "image/*", 'label' => 'PDF, Imagen, Archivo'));  
-            
-            if (!empty($this->request->data['Gasto']['file'])) {
-                $ext = substr(strrchr($this->request->data['Gasto']['file'],'.'),1);
-                if ( in_array(strtolower($ext), array('jpg', 'png', 'gif', 'jpeg')) ) {
-                    $iii = $this->Html->image(THUMB_FOLDER.$this->request->data['Gasto']['file'], array('width' => 48, 'alt' => 'Bajar', 'escape' => false));
-                } else {
-                    $iii = "Descargar $ext";
-                }
-                if (!empty($this->request->data['Gasto']['file'])) {
-                    echo $this->Html->link($iii, "/" . IMAGES_URL . $this->request->data['Gasto']['file'], array('target' => '_blank', 'escape' => false));
-                }
-            }
+            echo $this->Form->input('media_file',array('label'=>'PDF, Imagen, Archivo', 'type'=>'file'));                    
             
             echo $this->Form->input('clasificacion_id', array('empty' => '- Seleccione -'));
             echo $this->Form->input('observacion');

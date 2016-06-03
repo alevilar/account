@@ -5,8 +5,8 @@ if ( empty($modelName) ) {
 echo $this->Form->create($modelName, array(
     'url' => array('controller' => $this->name,'action' => $this->action), 
     'type' => 'get', 
-    'name' => 
-    'gasto_x_mes'
+    'name' => 'gasto_x_mes',
+	//'class' => 'form-inline',
     ));
 ?>
 
@@ -18,23 +18,31 @@ echo $this->Form->create($modelName, array(
 </style>
 
 <div class="row">
+ 
+
+	<div class="col-sm-2">
+		     
+        <?php
+        echo  $this->Form->input('total', array(
+        		'input-addon-before' => '$',
+        		'label'=>false, 
+        		'placeholder'=>'Importe', 
+        		'required' => false,
+        		));
+        ?>
+    </div>
+
     <div class="col-sm-2">
         <?php
-        echo $this->Form->input('tipo_cierre', array(
-            'label' => 'Estado',
-            'options' => array(
-                'a' => 'Abierto',
-                'c' => 'Cerrado',
-            ),
+        echo $this->Form->input('tipo_de_pago_id', array(
             'label' => false,
-            'empty' => 'Estado',
-            'placeholder' => 'Estado',
+            'empty' => 'Tipo de Pago',
             ));
         ?>
     </div>
 
     <?php if (!empty($proveedores)) { ?>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <?php
             echo $this->Form->input('proveedor_id', array(
                 'label'=>false, 
@@ -42,17 +50,6 @@ echo $this->Form->create($modelName, array(
                 'placeholder' => 'Proveedor'));
                 ?>
         
-    </div>
-    <?php } ?>
-
-
-     <?php if (!empty($clasificaciones)) { ?>
-    <div class="col-sm-2">
-       <?php
-        echo $this->Form->input('clasificacion_id', array(
-            'empty' => 'Clasificacion',
-            'label'=>false));
-        ?>
     </div>
     <?php } ?>
 
@@ -67,14 +64,10 @@ echo $this->Form->create($modelName, array(
         echo  $this->Form->input('fecha_hasta', array('label'=>false, 'placeholder'=>'Hasta', 'type' => 'date'));
         ?>
     </div>
+    
     <div class="col-sm-1">
         <?php
-        echo  $this->Form->input('importe_neto', array('label'=>false, 'placeholder'=>'Neto', 'required' => false));
-        ?>
-    </div>
-    <div class="col-sm-1">
-        <?php
-        echo  $this->Form->button('Buscar', array('class'=>'btn btn-primary', 'type'=>'submit'));
+        echo  $this->Form->button('Buscar', array('class'=>'btn btn-primary btn-block', 'type'=>'submit'));
         ?>
     </div>
     <div class="clearfix"></div>

@@ -35,13 +35,14 @@ class EgresosController extends AccountAppController
         );
 
         $this->set('proveedores', $this->Egreso->Gasto->Proveedor->find('list'));
+        $this->set('tipoDePagos', $this->Egreso->TipoDePago->find('list'));
         $this->set('egresos', $this->paginate());
     }
 
     public function edit($egreso_id)
     {
-        if ($this->request->is(array('post', 'put')) && !empty($this->request->data)) {
-            if (!$this->Egreso->save($this->request->data )) {
+        if ($this->request->is(array('post', 'put')) && !empty($this->request->data)) {            
+            if ( !$this->Egreso->save($this->request->data) ) {
                 $this->Session->setFlash('El pago no pudo ser guardado', 'Risto.flash_error');
             } else {
                 $this->Session->setFlash('El Pago fue guardado');
@@ -115,7 +116,7 @@ class EgresosController extends AccountAppController
     {
         if ( $this->request->is(array('post', 'put')) && !empty($this->request->data) ) {
             $this->Egreso->create();
-            $fields = array('fecha','tipo_de_pago_id','observacion', 'fecha');
+            $fields = array('fecha','tipo_de_pago_id','observacion', 'fecha', 'media_id');
             if (isset($this->data['Egreso']['total'])){
                 $fields[] = 'total';
             }

@@ -173,6 +173,7 @@ class Gasto extends AccountAppModel {
         public function beforeDelete($cascade = true)
         {            
             parent::beforeDelete($cascade);
+            $this->contain('Egreso');
             $gasto = $this->read();            
             foreach ( $gasto['Egreso'] as $g ) {
                 if ( !$this->Egreso->delete($g['id']) ) {

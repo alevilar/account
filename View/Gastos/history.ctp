@@ -1,4 +1,6 @@
 <?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Gasto', 'size'=>'modal-lg'));?>
+<?php echo $this->element('Risto.image-modal-zoom');?>
+
 
 <?php echo $this->Html->css('/account/css/style');?>
 

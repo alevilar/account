@@ -54,7 +54,7 @@
         if (!empty($this->request->data['Egreso']['media_id'])) {    
                 echo $this->Html->imageMedia( $this->request->data['Egreso']['media_id'] , array('class'=>'thumb'));
         }
-        echo $this->Form->input('media_file', array('type' => 'file', 'label' => 'Subir PDF, Imagen, Archivo'));
+        echo $this->Form->input('media_file',array('label'=>'PDF, Imagen, Archivo', 'type'=>'file'));
 
 
         echo $this->Form->input('observacion');

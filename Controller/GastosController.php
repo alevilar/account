@@ -57,8 +57,8 @@ class GastosController extends AccountAppController
 
     public function view($id = null)
     {
-        if (!$id) {
-            $this->Session->setFlash(__('Invalid Gasto', true));
+
+        if (!$this->Gasto->exists($id) ) {
             $this->redirect(array('action' => 'index'));
         }
 

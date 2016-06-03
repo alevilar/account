@@ -1,3 +1,4 @@
+<?php echo $this->element('Risto.image-modal-zoom');?>
 
 <?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Gasto', 'size'=>'modal-lg'));?>
 
@@ -100,7 +101,7 @@ if (empty($gastos)) {
                     </td>
 
                     <td class="center image">
-                        <?php echo $this->Html->mediaLink( $gasto['Media'], array('width'=>'48') );?>                       
+                        <?php echo $this->Html->mediaLink( $gasto['Media'], array('width'=>'48', 'img-modal'=>true) );?>                       
                     </td>
                     
                     
