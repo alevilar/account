@@ -5,6 +5,12 @@ App::uses('AccountAppController', 'Account.Controller');
 class EgresosController extends AccountAppController
 {
    
+     public function index () {
+        $this->history();
+        $this->elementMenu = 'Cash.menu';
+        $this->render('history');
+     }
+
 
     public function history ()
     {
