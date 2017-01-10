@@ -278,4 +278,48 @@ class Egreso extends AccountAppModel {
             ));
             return $query;
         }
+
+
+        /**
+     *
+     *  Busca los egresos realizados entre el rango de fechas indicado
+     * 
+     * @param datetime $desde fecha desde. Tambien puede ser un array, que luego será separado en fecha desde y hasta
+     * @param datetime $hasta fecha hasta
+     * @return array (find all) de egresos encontradas
+     * 
+     **/
+    public function  buscaDesdeHastaXFechaCobro( $desde = null, $hasta = null) {
+        // armo las condiciones de busqueda de la mesa
+        $conds = array();
+
+        // si vino un array lo descompongo en 2 variables
+        if ( is_array($desde)) {
+            if ( !empty($desde['hasta']) ) {
+                $hasta = $desde['hasta'];
+            }
+
+            if ( !empty($desde['desde']) ) {
+                $desde = $desde['desde'];
+            }
+        }
+
+
+        if ( !empty($hasta)) {
+            $conds['Egreso.created <='] = $hasta;
+        }
+
+        if ( !empty($desde)) {
+            $conds['Egreso.created >'] = $desde;
+        }
+        $egresos = $this->find('all', array(
+            'conditions' => $conds,
+            'contain' => array(
+                    'TipoDePago',
+                    'Media',
+                    'Gasto' => array('Proveedor')
+                ),
+            ));
+        return $egresos;
+    }
 }
