@@ -295,12 +295,14 @@ class Egreso extends AccountAppModel {
 
         // si vino un array lo descompongo en 2 variables
         if ( is_array($desde)) {
-            if ( !empty($desde['hasta']) ) {
-                $hasta = $desde['hasta'];
+            $desdeHasta = $desde;
+            unset($desde);
+            if ( !empty($desdeHasta['hasta']) ) {
+                $hasta = $desdeHasta['hasta'];
             }
 
-            if ( !empty($desde['desde']) ) {
-                $desde = $desde['desde'];
+            if ( !empty($desdeHasta['desde']) ) {
+                $desde = $desdeHasta['desde'];
             }
         }
 
