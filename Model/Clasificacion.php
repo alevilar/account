@@ -11,7 +11,7 @@ class Clasificacion extends AccountAppModel {
 		'name' => array('notBlank')
 	);
     
-    public $actsAs = array('Tree');
+    public $actsAs = array('Tree','Risto.Auditable',);
         
         //The Associations below have been created with all possible keys, those that are not needed can be removed
 	public $hasMany = array('Account.Gasto');

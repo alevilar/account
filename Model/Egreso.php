@@ -17,6 +17,7 @@ class Egreso extends AccountAppModel {
                         "total",
                 ),
             ),
+        'Risto.Auditable',
         );
 
     public $order = array(
