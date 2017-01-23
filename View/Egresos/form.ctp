@@ -76,7 +76,15 @@
     </div>
 
     <?php
-    echo $this->Form->submit('guardar', array('class'=>'btn btn-lg btn-success'));
-    echo $this->Form->end();
+    echo $this->Form->end(array('class'=>'btn btn-lg btn-success', 'label' => 'Guardar'));
+    ?>
+    <br>
+    <?php
+        if (isset($arqueoId) ) {
+         echo $this->Html->link(__('Volver a la lista de pagos del arqueo'), array('plugin' => 'cash', 'controller' => 'arqueos', 'action' => 'listar_pagos', $arqueoId), array('class'=>'btn btn-info'));
+         } else {
+            $arqueoId = null;
+         }
+
     ?>
 </div>

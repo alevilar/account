@@ -45,7 +45,15 @@ class EgresosController extends AccountAppController
         $this->set('egresos', $this->paginate());
     }
 
-    public function edit($egreso_id)
+  public function redireccionar($arqueoId) {
+          if($arqueoId == null) {
+          $this->redirect(array('action'=>'history'));
+        } else {
+          $this->redirect(array('plugin'=>'cash', 'controller'=>'arqueos', 'action'=>'listar_pagos', $arqueoId));
+        }
+  }
+
+    public function edit($egreso_id, $arqueoId = null)
     {
         if ($this->request->is(array('post', 'put')) && !empty($this->request->data)) {            
             if ( !$this->Egreso->save($this->request->data) ) {
@@ -53,10 +61,12 @@ class EgresosController extends AccountAppController
             } else {
                 $this->Session->setFlash('El Pago fue guardado');
             }
-            $this->redirect($this->referer());
+
         }
+
         $this->request->data = $this->Egreso->read(null, $egreso_id);
         $this->set('tipoDePagos', $this->Egreso->TipoDePago->find('list'));
+        $this->set(compact('arqueoId'));
         $this->render('form');
     }
 
@@ -166,7 +176,7 @@ class EgresosController extends AccountAppController
     }
     
     
-    public function delete($id = null)
+    public function delete($id = null, $arqueoId = null)
     {
         if (!$id) {
             $this->Session->setFlash(__('Invalid id for Egreso', true));
@@ -175,11 +185,10 @@ class EgresosController extends AccountAppController
         if ($this->Egreso->delete($id)) {
             $this->Session->setFlash(__('Egreso deleted', true));
             if ( !$this->request->is('ajax') ) {
-                $this->redirect(array('action' => 'history'));
+                $this->redireccionar($arqueoId);
             }
         }
         $this->Session->setFlash(__('The Egreso could not be deleted. Please, try again.', true));
-        $this->redirect($this->referer);
     }
 
 }
