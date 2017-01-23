@@ -81,11 +81,11 @@
 
                 <td>
                     <?php
-                    echo $this->Html->link('Ver', array('action' => 'view', $g['Egreso']['id']));
+                    echo $this->Html->link('Ver', array('plugin' => 'account', 'controller' => 'egresos', 'action' => 'view', $g['Egreso']['id']));
                     echo "<br>";
-                    echo $this->Html->link('Editar', array('action' => 'edit', $g['Egreso']['id']), array('class'=>'btn-edit'));
+                    echo $this->Html->link('Editar', array('plugin' => 'account', 'controller' => 'egresos', 'action' => 'edit', $g['Egreso']['id']), array('class'=>'btn-edit'));
                     echo "<br>";
-                    echo $this->Html->link('Eliminar', array('action'=>'delete', $g['Egreso']['id']), null, sprintf(__('¿Está seguro que desea borrar el pago de %s', true), $this->Number->currency($g['Egreso']['total'])));
+                    echo $this->Html->link('Eliminar', array('plugin' => 'account', 'controller' => 'egresos', 'action'=>'delete', $g['Egreso']['id']), null, sprintf(__('¿Está seguro que desea borrar el pago de %s', true), $this->Number->currency($g['Egreso']['total'])));
                     ?>
                 </td>
 
