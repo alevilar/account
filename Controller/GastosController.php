@@ -69,7 +69,11 @@ class GastosController extends AccountAppController
             'TipoFactura',
             'Egreso' => array('TipoDePago', 'Media'),
             'Impuesto' => 'TipoImpuesto',
-            'Media'
+            'Media',
+            'Pedido'=>array(
+                'PedidoMercaderia'=>'Mercaderia'
+
+            ),
         ));
 
         $this->set('gasto', $this->Gasto->completarConImportePagado( $this->Gasto->read(null, $id) ) );

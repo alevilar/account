@@ -46,10 +46,10 @@ class EgresosController extends AccountAppController
     }
 
   public function redireccionar($arqueoId) {
-          if($arqueoId == null) {
-          $this->redirect(array('action'=>'history'));
+        if($arqueoId == null) {
+          return Router::url(array('action'=>'history'));
         } else {
-          $this->redirect(array('plugin'=>'cash', 'controller'=>'arqueos', 'action'=>'listar_pagos', $arqueoId));
+          return Router::url( array('plugin'=>'cash', 'controller'=>'arqueos', 'action'=>'listar_pagos', $arqueoId) );
         }
   }
 
@@ -59,12 +59,12 @@ class EgresosController extends AccountAppController
             if ( !$this->Egreso->save($this->request->data) ) {
                 $this->Session->setFlash('El pago no pudo ser guardado', 'Risto.flash_error');
             } else {
-                $this->Session->setFlash('El Pago fue guardado');
+                $this->Session->setFlash('El Pago fue guardado');               
             }
 
         }
-
         $this->request->data = $this->Egreso->read(null, $egreso_id);
+        $this->request->data['Egreso']['redirect'] = $this->redireccionar($arqueoId);
         $this->set('tipoDePagos', $this->Egreso->TipoDePago->find('list'));
         $this->set(compact('arqueoId'));
         $this->render('form');
@@ -138,6 +138,7 @@ class EgresosController extends AccountAppController
             }
             if ($this->Egreso->save($this->request->data, true, $fields)) {
                 $this->Session->setFlash('El Pago fue guardado correctamente');
+
             } else {
                 debug($this->Egreso->validationErrors);die;
                 $this->Session->setFlash('Error al guardar el pago', 'Risto.flash_error');
@@ -185,7 +186,7 @@ class EgresosController extends AccountAppController
         if ($this->Egreso->delete($id)) {
             $this->Session->setFlash(__('Egreso deleted', true));
             if ( !$this->request->is('ajax') ) {
-                $this->redireccionar($arqueoId);
+                $this->redirect ( $this->redireccionar($arqueoId) );
             }
         }
         $this->Session->setFlash(__('The Egreso could not be deleted. Please, try again.', true));
