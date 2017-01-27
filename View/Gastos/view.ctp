@@ -27,7 +27,7 @@
 
 
 <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <?php
         echo $this->Html->mediaLink(  $gasto['Media'], array(
                                         'width'=>'1000', 
@@ -49,7 +49,7 @@
 
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <div class="imagen-pagado <?php echo $class ?>">
             <?php echo ($class=='pagado')?$this->Html->image('pagado.png'):"" ?>
         </div>
@@ -100,7 +100,7 @@
     </div>
 
 
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         
 
         <?php if (!empty($gasto['Egreso'])) { ?>
@@ -139,15 +139,15 @@
         <?php } ?>
             
     </div>
-    </div>
 
-<div>
+
+ <div class="col-sm-3">
     <table class="table">
         <thead>
             <tr>
                 <th>Cantidad</th>
                 <th>Mercaderia</th>
-                <th>Precio de Compra</th>
+                <th>Precio</th>
                 <th>Observación</th>
             </tr>   
         </thead>
@@ -178,5 +178,8 @@
     ?>
     </tr>
     </table>
+ </div>
+
 </div>
+
 </div>
