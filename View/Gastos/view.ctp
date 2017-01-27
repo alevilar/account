@@ -140,4 +140,43 @@
             
     </div>
     </div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cantidad</th>
+                <th>Mercaderia</th>
+                <th>Precio de Compra</th>
+                <th>Observación</th>
+            </tr>   
+        </thead>
+      <tr>  
+    <?php 
+
+    foreach ($gasto['Pedido'] as $merca ) {
+        $indice = 0;
+
+        $cant = (float)$merca['PedidoMercaderia'][$indice]['cantidad'];
+        $precio = $this->Number->currency( $merca['PedidoMercaderia'][$indice]['precio'] );
+        $uMedida = $merca['PedidoMercaderia'][$indice]['Mercaderia']['UnidadDeMedida']['name'];
+        $uMedida = ($cant > 1) ? Inflector::pluralize($uMedida) : $uMedida;
+        $mercaderia = $merca['PedidoMercaderia'][$indice]['Mercaderia']['name'];
+        $obs = $merca['PedidoMercaderia'][$indice]['observacion'];
+     ?>
+      <tr>
+
+      <td><?php echo $cant." ".$uMedida?></td>
+      <td><?php echo $mercaderia?></td>
+      <td><?php echo $precio?></td>
+      <td><?php echo $obs?></td>
+
+      </tr>
+      <?php
+      $indice = $indice + 1;
+    }
+    ?>
+    </tr>
+    </table>
+</div>
 </div>

@@ -71,8 +71,7 @@ class GastosController extends AccountAppController
             'Impuesto' => 'TipoImpuesto',
             'Media',
             'Pedido'=>array(
-                'PedidoMercaderia'=>'Mercaderia'
-
+                'PedidoMercaderia'=>array('Mercaderia' => 'UnidadDeMedida'),
             ),
         ));
 
