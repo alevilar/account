@@ -28,14 +28,15 @@
 
 
 
-
+<?php if (count($gastos) >= 1) {?>
 <?php if (!empty($tipo_impuestos)) { ?>
 <a href="#" id="btn-mostrar-impuestos" class="btn btn-link" style="float: right">Mostrar Impuestos</a>
 <?php } ?>
 
 <div id="tabla-de-gastos">      
-    
+   
 <div class="alert alert-info dismiss">Se encontraron <?php echo count($gastos);?> Gastos</div>
+
 
     <table class="table table-hover listado-gastos">
         <thead>
@@ -244,6 +245,10 @@
     </table>
 
 </div>
+
+<?php } else { ?>
+<div class="alert alert-info dismiss">No se encontraron gastos.</div>
+    <?php } ?>
 
 
 <?php $this->append("script") ?>
