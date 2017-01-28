@@ -89,8 +89,11 @@ class Gasto extends AccountAppModel {
         
     public $hasMany = array(
 		'Account.Impuesto',
-        'Compras.Pedido',
             );
+
+    public $hasOne = array(
+        'Compras.Pedido',
+        );
         
         //The Associations below have been created with all possible keys, those that are not needed can be removed
 	public $hasAndBelongsToMany = array(                

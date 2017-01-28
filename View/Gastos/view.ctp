@@ -27,7 +27,7 @@
 
 
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-1">
         <?php
         echo $this->Html->mediaLink(  $gasto['Media'], array(
                                         'width'=>'1000', 
@@ -100,11 +100,11 @@
     </div>
 
 
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         
 
         <?php if (!empty($gasto['Egreso'])) { ?>
-        <h3>Listado de Pagos</h3>
+        <h3 class="center">Listado de Pagos</h3>
         <ul class="list-group">
         <?php foreach ($gasto['Egreso'] as $pags){ ?>    
             <li class="list-group-item">
@@ -141,40 +141,46 @@
     </div>
 
 
- <div class="col-sm-3">
+ <div class="col-sm-4">
+ <?php if ( !empty($gasto['Pedido']['PedidoMercaderia'] )) { ?>
+ 	<h3 class="center">Ítems</h3>
     <table class="table">
         <thead>
-            <tr>
-                <th>Cantidad</th>
-                <th>Mercaderia</th>
-                <th>Precio</th>
-                <th>Observación</th>
-            </tr>   
+        <?php
+        echo $this->Html->tableHeaders(array(
+        		__("Cantidad"),
+        		__("Mercaderia"),
+        		__("Precio"),
+        	));
+
+        ?>
+           
         </thead>
       <tr>  
     <?php 
 
-    foreach ($gasto['Pedido'] as $merca ) {
-        $indice = 0;
+    foreach ($gasto['Pedido']['PedidoMercaderia'] as $merca ) {
 
-        $cant = (float)$merca['PedidoMercaderia'][$indice]['cantidad'];
-        $precio = $this->Number->currency( $merca['PedidoMercaderia'][$indice]['precio'] );
-        $uMedida = $merca['PedidoMercaderia'][$indice]['Mercaderia']['UnidadDeMedida']['name'];
+        $cant = (float)$merca['cantidad'];
+        $precio = $this->Number->currency( $merca['precio'] );
+        $uMedida = $merca['Mercaderia']['UnidadDeMedida']['name'];
         $uMedida = ($cant > 1) ? Inflector::pluralize($uMedida) : $uMedida;
-        $mercaderia = $merca['PedidoMercaderia'][$indice]['Mercaderia']['name'];
-        $obs = $merca['PedidoMercaderia'][$indice]['observacion'];
-     ?>
-      <tr>
+        $mercaderia = $merca['Mercaderia']['name'];
+        $obs = $merca['observacion'];
 
-      <td><?php echo $cant." ".$uMedida?></td>
-      <td><?php echo $mercaderia?></td>
-      <td><?php echo $precio?></td>
-      <td><?php echo $obs?></td>
-
-      </tr>
-      <?php
-      $indice = $indice + 1;
+        echo $this->Html->tableCells(array(
+        		$cant." ".$uMedida,
+        		$mercaderia,
+        		$precio,
+        	));
+     
     }
+} else {
+
+	?>
+	<p class="alert"><?php echo __("No hay ítems en este gasto")?></p>
+	<?php
+}
     ?>
     </tr>
     </table>
