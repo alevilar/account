@@ -143,7 +143,9 @@
 
  <div class="col-sm-4">
  <?php if ( !empty($gasto['Pedido']['PedidoMercaderia'] )) { ?>
- 	<h3 class="center">Ítems</h3>
+
+ <?php $link = $this->Html->link(__("OC #%s", $gasto['Pedido']['id']), array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'view', $gasto['Pedido']['id']), array('btn-edit')); ?>
+ 	<h3 class="center"><?php echo __("Ítems"). " ".$link?></h3>
     <table class="table">
         <thead>
         <?php

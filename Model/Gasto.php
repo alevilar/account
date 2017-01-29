@@ -57,6 +57,7 @@ class Gasto extends AccountAppModel {
 			'numeric' => array(
 				'rule' => 'numeric',
 				'required' => false,
+                'allowEmpty' => true,
 				'message' => 'Debe especificar un tipo de factura'
 			)
 		),
