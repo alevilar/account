@@ -36,9 +36,5 @@ echo $this->element("Account.egresos_table_list");
     	?>
     	</p>
 
-    <div class="paging">
-    	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
-     | 	<?php echo $this->Paginator->numbers();?>
-    	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
-    </div>
+<?php echo $this->element('Risto.pagination'); ?>
 </div>
