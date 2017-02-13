@@ -41,7 +41,7 @@
         $disabled = false;
         $after = '<span class="text-info">¡Cuidado! Una vez guardado el pago no podrá modificar el importe total</span>';
     }
-    echo $this->Form->input('total', array('type' => 'number', 'step'=>'any', 'disabled' => $disabled, 'after'=>$after));
+    echo $this->Form->input('total', array('type' => 'text', 'step'=>'any', 'disabled' => $disabled, 'after'=>$after));
 
     ?> 
         </div>
