@@ -44,7 +44,8 @@ class ProveedoresController extends AccountAppController {
 			$this->redirect($this->referer());
 		}
 		$rubros = $this->Proveedor->Rubro->find('list');
-		$this->set(compact('rubros'));
+		$tipoImpuestos = $this->Proveedor->TipoImpuesto->find('list');
+		$this->set(compact('rubros', 'tipoImpuestos'));
 		$this->render('form');
 	}
 
@@ -65,8 +66,9 @@ class ProveedoresController extends AccountAppController {
 			$this->request->data = $this->Proveedor->read(null, $id);
 		}
 
+		$tipoImpuestos = $this->Proveedor->TipoImpuesto->find('list');
 		$rubros = $this->Proveedor->Rubro->find('list');
-		$this->set(compact('rubros'));
+		$this->set(compact('rubros', 'tipoImpuestos'));
 		$this->render('form');
 	}
 

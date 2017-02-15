@@ -36,6 +36,20 @@ class Proveedor extends AccountAppModel {
 
 
     public $hasAndBelongsToMany = array(
+        'TipoImpuesto' => array(
+            'className' => 'Account.TipoImpuesto',
+            'joinTable' => 'account_proveedores_tipo_impuestos',
+            'foreignKey' => 'proveedor_id',
+            'associationForeignKey' => 'tipo_impuesto_id',
+            'unique' => 'keepExisting',
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+
+            ),
         'Rubro' => array(
             'className' => 'Compras.Rubro',
             'joinTable' => 'compras_proveedores_rubros',

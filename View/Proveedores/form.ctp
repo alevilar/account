@@ -21,6 +21,10 @@
 	<div class="col-sm-4">
 		<?php
 		echo $this->Form->input('mail');
+
+		if ( $tipoImpuestos ) {
+			echo $this->Form->input('TipoImpuesto');
+		}
 		
 		?>
 	</div>
