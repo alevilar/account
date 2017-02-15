@@ -28,6 +28,7 @@ echo $this->Form->create($modelName, array(
         		'label'=>false, 
         		'placeholder'=>'Importe', 
         		'required' => false,
+                'type' => 'text'
         		));
         ?>
     </div>
