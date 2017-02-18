@@ -134,8 +134,8 @@ echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', t
             </div>
 
             <?php
-            echo $this->Form->input('importe_neto', array('id' => 'importe-neto', 'type' => 'text', 'step'=>'any'));
-            echo $this->Form->input('importe_total', array('id' => 'importe-total', 'type' => 'text', 'step'=>'any'));
+            echo $this->Form->input('importe_neto', array('id' => 'importe-neto', 'type' => 'number', 'step'=>'any'));
+            echo $this->Form->input('importe_total', array('id' => 'importe-total', 'type' => 'number', 'step'=>'any'));
             ?>
 
 
