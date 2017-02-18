@@ -136,6 +136,13 @@ class EgresosController extends AccountAppController
             if (isset($this->data['Egreso']['total'])){
                 $fields[] = 'total';
             }
+
+            if (!empty($this->request->data['Egreso']['total'])){
+                $this->request->data['Egreso']['total'] = formatearPrecio($this->request->data['Egreso']['total']);
+            }
+            debug($this->request->data);
+
+
             if ($this->Egreso->save($this->request->data, true, $fields)) {
                 $this->Session->setFlash('El Pago fue guardado correctamente');
 
