@@ -139,16 +139,15 @@ echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', t
             ?>
 
 
-            <?php if (empty($this->request->data['Gasto']['id'])) { ?>
-                <div>
-                    <?php echo $this->Form->button('Guardar Sin Pagar', array('data-theme' => 'b', 'id' => 'btn-guardar-sin-pagar', 'class' => 'btn btn-lg')); ?>
+      
+                
+             <div>
+                <?php echo $this->Form->button('Guardar Sin Pagar', array('data-theme' => 'b', 'id' => 'btn-guardar-sin-pagar', 'class' => 'btn btn-lg')); ?>
 
-                    <?php echo $this->Form->button('Pagar', array('data-theme' => 'e', 'id' => 'btn-guardar-y-pagar', 'class' => 'pull-right btn btn-lg btn-primary')); ?>            
+                <?php echo $this->Form->button('Pagar', array('data-theme' => 'e', 'id' => 'btn-guardar-y-pagar', 'class' => 'pull-right btn btn-lg btn-primary')); ?>            
+            </div>
 
-                </div>
-            <?php } else { ?>
-                <?php echo $this->Form->button('Editar', array('type' => 'submit', 'id' => 'btn-guardar-sin-pagar',  'class' => 'pull-right btn btn-lg btn-primary')); ?>
-            <?php } ?>
+
         </div>
     </div>
 

@@ -123,8 +123,17 @@ class GastosController extends AccountAppController
 
         if (!empty($this->request->data)) {
             if ($this->Gasto->save($this->request->data)) {
-                $this->Session->setFlash(__('The Gasto has been saved'));
 
+                $this->Session->setFlash(__('The Gasto has been saved', true));
+
+                if (!empty($this->request->data['Gasto']['pagar'])) {
+                    $this->redirect( array(
+                            'controller' => 'egresos',
+                            'action' => 'add',
+                            $this->Gasto->id
+                        ));
+                }
+                
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(__('The Gasto could not be saved. Please, try again.'), 'Risto.flash_error');
