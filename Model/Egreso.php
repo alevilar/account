@@ -222,6 +222,9 @@ class Egreso extends AccountAppModel {
         
         function beforeSave($options = array())
         {
+            if (!empty($this->data['total'])){
+                $this->data['total'] = formatearPrecio($this->data['total']);
+            }
         	
             if ( !parent::beforeSave($options) ) {
             	return false;
