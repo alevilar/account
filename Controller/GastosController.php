@@ -125,7 +125,7 @@ class GastosController extends AccountAppController
      **/
     public function impuestos_del_proveedor( $proveedor_id = null ) {
         $tipoImpuestos = array();
-
+if ($this->Gasto->Proveedor->exists($proveedor_id)) {
         $this->Gasto->Proveedor->id = $proveedor_id;
         $this->Gasto->Proveedor->contain(array(
             'TipoImpuesto',
@@ -147,6 +147,10 @@ class GastosController extends AccountAppController
                 $this->request->data['Impuesto'][$i['tipo_impuesto_id']] = $i;
             }
         }
+      } else {
+        $tipoImpuestos = $this->Gasto->TipoImpuesto->find('all', array('recursive' => -1));
+        $this->set('tipo_impuestos', $tipoImpuestos);
+      }
     }
 
 
