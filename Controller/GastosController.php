@@ -114,14 +114,81 @@ class GastosController extends AccountAppController
         $this->render('form');
     }
 
+
+    /**
+     * 
+     * Lista los tipo impuestos por proveedor
+     * si no se le pasa ningun proveedor como parametro
+     * listara TODOs los tipo impuestos existentes
+     * 
+     * 
+     **/
+    public function impuestos_del_proveedor( $proveedor_id = null ) {
+        $tipoImpuestos = array();
+
+        $this->Gasto->Proveedor->id = $proveedor_id;
+        $this->Gasto->Proveedor->contain(array(
+            'TipoImpuesto',
+            ));
+        $proveedor = $this->Gasto->Proveedor->read();
+
+        if (!empty($proveedor['TipoImpuesto'])) {
+            foreach ( $proveedor['TipoImpuesto'] as $tp ) {
+                $tipoImpuestos[$tp['id']] = array('TipoImpuesto' => $tp);
+            }
+        }
+
+        $this->set('tipo_impuestos', $tipoImpuestos);
+
+        if (!empty($this->request->data['Impuesto'])){
+            $imps = $this->request->data['Impuesto'];
+            $this->request->data['Impuesto'] = array();
+            foreach ($imps as $i) {
+                $this->request->data['Impuesto'][$i['tipo_impuesto_id']] = $i;
+            }
+        }
+    }
+
+
+
+    public function impuestos_del_gasto( $id ) {
+        $tipoImpuestos = array();
+
+        if ( empty($this->request->data) ) {
+            $this->Gasto->contain(array(
+                'Impuesto',
+                'TipoImpuesto',
+                'Proveedor.TipoImpuesto',
+                ));
+            $this->request->data = $this->Gasto->read(null, $id);
+        }
+
+        foreach ( $this->request->data['TipoImpuesto'] as $tp ) {
+            $tipoImpuestos[$tp['id']] = array('TipoImpuesto' => $tp);
+        }
+
+        foreach ( $this->request->data['Proveedor']['TipoImpuesto'] as $tp ) {
+            $tipoImpuestos[$tp['id']] = array('TipoImpuesto' => $tp);
+        }
+        $this->set('tipo_impuestos', $tipoImpuestos);
+
+        if (!empty($this->request->data['Impuesto'])){
+            $imps = $this->request->data['Impuesto'];
+            $this->request->data['Impuesto'] = array();
+            foreach ($imps as $i) {
+                $this->request->data['Impuesto'][$i['tipo_impuesto_id']] = $i;
+            }
+        }
+    }
+
     public function edit($id = null)
     {
-        if (!$id && empty($this->request->data)) {
+        if ( !$this->Gasto->exists($id) ) {
             $this->Session->setFlash(__('Invalid Gasto', true));
             $this->redirect(array('action' => 'index'));
         }
 
-        if (!empty($this->request->data)) {
+        if ( $this->request->is(array('post', 'put')) && !empty($this->request->data)) {
             if ($this->Gasto->save($this->request->data)) {
 
                 $this->Session->setFlash(__('The Gasto has been saved', true));
@@ -135,37 +202,38 @@ class GastosController extends AccountAppController
                 }
                 
                 $this->redirect($this->referer());
-            } else {
+            } else {             
                 $this->Session->setFlash(__('The Gasto could not be saved. Please, try again.'), 'Risto.flash_error');
                 debug($this->Gasto->validationErrors);
             }
         }
 
+
+        $this->Gasto->contain(array(
+                'Impuesto',
+                'TipoImpuesto',
+                'Proveedor.TipoImpuesto',
+                ));
+        $this->request->data = $this->Gasto->read(null, $id);
+
+        $this->impuestos_del_gasto($id);
+
+        // si el gasto esta cerrado, no permitir que pueda ser modificado
         if (empty($this->request->data)) {
-            $this->request->data = $this->Gasto->read(null, $id);
+
             if ($this->request->data['Gasto']['cierre_id']) {
                 $this->Session->setFlash('El gasto ya está "Cerrado", no puede ser modificado', 'Risto.flash_error');
                 $this->redirect(array('action'=>'view', $id));
             }
         }
 
-        if (!empty($this->request->data['Impuesto'])){
-            $imps = $this->request->data['Impuesto'];
-            $this->request->data['Impuesto'] = array();
-            foreach ($imps as $i) {
-                $this->request->data['Impuesto'][$i['tipo_impuesto_id']] = $i;
-            }
-        }
-        $this->pageTitle = 'Editar Gasto #' . $id;
-
+        
         $tipoFacturas = $this->Gasto->TipoFactura->find('list');
-        $tipo_impuestos = $this->Gasto->TipoImpuesto->find('all', array('recursive' => -1));
-        $impuestos = $this->Gasto->Impuesto->find('all');
         $clasificaciones = $this->Gasto->Clasificacion->generateTreeList();
         $proveedores = $this->Gasto->Proveedor->find('list', array(
             'order' => array('Proveedor.name')
                 ));
-        $this->set('tipo_impuestos', $tipo_impuestos);
+
         
         if (!empty($this->request->data['Proveedor']['id'])) {
             $cuit = '';
@@ -174,6 +242,7 @@ class GastosController extends AccountAppController
             }
             $this->request->data['Gasto']['proveedor_list'] = $this->request->data['Proveedor']['name'].$cuit;
         }
+        $this->set('title_for_layout', __("Editando Gasto #%s", $id));
         $this->set(compact('proveedores', 'tipoFacturas', 'clasificaciones'));
         $this->render('form');
     }

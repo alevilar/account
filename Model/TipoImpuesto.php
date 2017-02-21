@@ -35,7 +35,21 @@ class TipoImpuesto extends AccountAppModel {
 			'finderQuery' => '',
 			'deleteQuery' => '',
 			'insertQuery' => ''
-		)
+		),
+		'Proveedor' => array(
+            'className' => 'Account.Proveedor',
+            'joinTable' => 'account_proveedores_tipo_impuestos',
+            'foreignKey' => 'tipo_impuesto_id',
+            'associationForeignKey' => 'proveedor_id',
+            'unique' => 'keepExisting',
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+
+            ),
 	);
 
 }

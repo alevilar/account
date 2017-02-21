@@ -49,10 +49,10 @@
     }
     
     
-    $('input.importe','#GastoAddForm').bind('keyup', modificarTotalesSumados);
+    $('#GastoAddForm').on('keyup', 'input.importe', modificarTotalesSumados);
     
     
-    $('#GastoAddForm').bind('submit', function(){
+    $('#GastoAddForm').on('submit', function(){
         var okNeto = true,
             okTotal = true;
             
@@ -113,17 +113,17 @@
     }
        
        
-    $(".calc_impuesto").bind('focus',"#GastoAddForm", function(e){
+    $("#GastoAddForm").on('focus',".calc_impuesto", function(e){
         console.info("focuseo %o", this);
         calcularImpuestoSegunNetoVecino(this);
     });
 
-    $(".calc_neto").bind('focus', '#GastoAddForm', function(e){   
+    $('#GastoAddForm').on('focus', ".calc_neto", function(e){   
         calcularNetoSegunImpuestoVecino(this);
     });
 
 
-    $("input.calc_neto", '#GastoAddForm').bind('change', function(e){
+    $('#GastoAddForm').on('change', "input.calc_neto", function(e){
         var porcent = $(this).attr('data-porcent');
         var valor = $(this).val()*porcent/100;
         var $impuesto = $(this).parents('fieldset').find('input.calc_impuesto');
@@ -148,13 +148,13 @@
 
 
         // Autocomplete
-        $('input.auto-complete').bind('change',function(){
+        $('input.auto-complete').on('change',function(){
             // borrar cuando se elimina el texto del proveedor
             if ( !this.value ) {
                 $("#GastoProveedorId").attr('value','');
             }
         });
-        $('input.auto-complete').bind('focusout', function(){
+        $('input.auto-complete').on('focusout', function(){
             $('input.auto-complete').popover('hide');
         });
         // popover con informacion para crear nuevos proveedores
@@ -176,6 +176,16 @@
                     if (!data.length) {                        
                         $('input.auto-complete').popover('show');                        
                         $('#nuevo-proveedor').show('fade');
+                        
+                        var idGuardado = null;
+                        if ( proveedorAnterior != idGuardado ) {
+                            var urlImpuestoProveedor = $("#gastos-impuestos-container").data('url');
+                            proveedorAnterior = idGuardado;
+                            var urlToload = urlImpuestoProveedor;
+                            $("#gastos-impuestos-container").load( urlToload );
+                            console.info("actualizado NUEVO PROVEEDOR... %o y el ID es %o", proveedorAnterior, idGuardado);
+                        }
+
                     } else {
                         $('#nuevo-proveedor').hide('fade');
                     }
@@ -183,10 +193,27 @@
                     b(data, state);
                 });
             }
-        }).bind('select', function(a,b,c){
+        }).on('select', function(a,b,c){
             var id = $(b).attr('data-id');
+            
+
             if (id) {
                 $("#GastoProveedorId").val(id);
+            }
+
+            var urlImpuestoProveedor = $("#gastos-impuestos-container").data('url');
+            if ( typeof proveedorAnterior == 'undefined' ) {
+                proveedorAnterior = null;
+            }
+
+
+            var idGuardado = $("#GastoProveedorId").val();
+            console.debug("refrescando el ID es %o", idGuardado );
+            if ( proveedorAnterior != idGuardado ) {
+                proveedorAnterior = idGuardado;
+                var urlToload = urlImpuestoProveedor+ "/" + proveedorAnterior;
+                $("#gastos-impuestos-container").load( urlToload );
+                console.info("actualizado... %o y el ID es %o", proveedorAnterior, idGuardado);
             }
         });
       
