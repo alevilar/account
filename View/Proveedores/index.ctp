@@ -87,9 +87,9 @@
 					    <span class="sr-only">Toggle Dropdown</span>
 					  </button>
 					  <ul class="dropdown-menu">
-
-
-
+					    <li class="">
+					    	<?php echo $this->Form->postLink( __('Ver proveedor'), array('action'=>'view', $proveedor['Proveedor']['id']), array('class'=>' btn-sm')); ?>
+				    	</li>
 					    <li class="">
 					    	<?php echo $this->Form->postLink( __('Borrar'), array('action'=>'delete', $proveedor['Proveedor']['id']), array('class'=>' btn-sm'), __('¿Está seguro que desea eliminar: %s?', $proveedor['Proveedor']['name'])); ?>
 				    	</li>

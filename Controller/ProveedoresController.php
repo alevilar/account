@@ -6,9 +6,7 @@ App::uses('AccountAppController', 'Account.Controller');
 class ProveedoresController extends AccountAppController {
 
 	public $name = 'Proveedores';
-
-        
-        
+       
 	public function index () {
 		$this->Proveedor->recursive = 0;                
         if ( !empty($this->request->data['Proveedor']['buscar_proveedor'])) {
@@ -29,7 +27,23 @@ class ProveedoresController extends AccountAppController {
 			$this->Session->setFlash(__('Invalid Proveedor'));
 			$this->redirect($this->referer());
 		}
-		$this->set('proveedor', $this->Proveedor->read(null, $id));
+		$proveedor = $this->Proveedor->buscarProveedorPorId($id);
+
+		$conds = array(
+            'Proveedor.id' => $id,
+            );
+
+        $this->Paginator->settings['Proveedor'] = array(
+            'order'  => array(
+                'Pedido.id' => 'DESC',
+                ),
+            'contain' => array(
+                'Pedido' => array('PedidoMercaderia' => array('Mercaderia', 'UnidadDeMedida'), 'User')
+                ),
+            'conditions' => $conds,
+        );
+        $pedidos = $this->Paginator->paginate('Proveedor');
+		$this->set(compact('proveedor', 'pedidos', 'mercaderia'));
 	}
 
 	public function add() {

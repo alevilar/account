@@ -32,7 +32,7 @@ class Proveedor extends AccountAppModel {
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	public $hasMany = array( 'Account.Gasto' );
+	public $hasMany = array( 'Account.Gasto', 'Compras.Pedido' );
 
 
     public $hasAndBelongsToMany = array(
@@ -71,6 +71,17 @@ class Proveedor extends AccountAppModel {
              return validate_cuit_cuil($this->data['Proveedor']['cuit']);
         }
         return true;
+    }
+
+/**
+ * Busca el proveedor según la id.
+ *
+ * @param int $id ID del proveedor.
+ * @return array.
+ **/
+
+    public function buscarProveedorPorId($id) {
+        return $this->find('first', array('conditions' => array('Proveedor.id' => $id), 'contain' => array('Rubro', 'TipoImpuesto')));
     }
 
 }
