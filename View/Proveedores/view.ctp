@@ -84,6 +84,11 @@ echo $TI['name']. ", ";
 				<th><?php echo $this->Paginator->sort('id', "#Orden")?></th>
 				<th><?php echo $this->Paginator->sort('created', "Fecha")?></th>
 				<th><?php echo $this->Paginator->sort('created_by', "Creador del pedido")?></th>
+				<th><?php echo $this->Paginator->sort('cantidad', "Cantidad")?></th>
+				<th><?php echo $this->Paginator->sort('unidad_de_medida_id', "U/Medida")?></th>
+				<th><?php if (!isset($esInformativa)) { echo $this->Paginator->sort('name', "Mercaderia"); }?></th>
+				<th><?php echo $this->Paginator->sort('precio', "Precio")?></th>
+				<th>Rubro</th>
 			</tr>	
 		</thead>
 		
@@ -95,7 +100,11 @@ echo $TI['name']. ", ";
 			$fecha_creacion = $this->Time->nice($mercaderia['created']);
 			$username = $mercaderia['User']['username'];
 foreach($mercaderia['PedidoMercaderia'] as $merca) {
-
+            $mercaderia = $merca['Mercaderia']['name']; 
+            $cantidad = $merca['cantidad'];          
+            $precio = $merca['precio'];
+            $unidadDeMedida = $merca['Mercaderia']['UnidadDeMedida']['name'];
+            $rubro = $merca['Mercaderia']['Rubro']['name'];
 }
 			?>
 
@@ -106,8 +115,11 @@ foreach($mercaderia['PedidoMercaderia'] as $merca) {
 				?></td>
 			<td class="small"><?php echo $fecha_creacion;?></td>
 			<td><?php echo $username;?></td>
-
-
+			<td><?php echo $cantidad;?></td>
+			<td><?php echo $unidadDeMedida;?></td>
+			<td><?php echo $mercaderia;?></td>
+			<td><?php echo $precio;?></td>
+			<td><?php echo $rubro;?></td>
 		</tr>
 	<?php } ?>
 		</tbody>

@@ -29,20 +29,35 @@ class ProveedoresController extends AccountAppController {
 		}
 		$proveedor = $this->Proveedor->buscarProveedorPorId($id);
 
-		$conds = array(
+		/*$conds = array(
             'Proveedor.id' => $id,
             );
-
         $this->Paginator->settings['Proveedor'] = array(
             'order'  => array(
-                'Pedido.id' => 'DESC',
+                'INNER JOIN Pedido.created' => 'DESC',
                 ),
             'contain' => array(
                 'Pedido' => array('PedidoMercaderia' => array('Mercaderia', 'UnidadDeMedida'), 'User')
                 ),
             'conditions' => $conds,
+        );*/
+        $conds = array(
+            'Proveedor.id' => $id
+            );
+
+        $this->Paginator->settings = array(
+            'order'  => array(
+                'PedidoMercaderia.created' => 'DESC',
+                ),
+            'contain' => array(
+                'Pedido'=>array('User', 'Proveedor', 'PedidoMercaderia'=> array('Mercaderia' => array('Proveedor','Rubro', 'UnidadDeMedida'))),
+                ),
+            'conditions' => $conds,
         );
-        $pedidos = $this->Paginator->paginate('Proveedor');
+
+        $pedidos = $this->Paginator->paginate();
+
+        debug($pedidos);
 		$this->set(compact('proveedor', 'pedidos', 'mercaderia'));
 	}
 
