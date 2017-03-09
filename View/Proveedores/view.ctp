@@ -65,7 +65,7 @@ echo $TI['name']. ", ";
 		<?php echo $this->Html->link(__('Borrar Proveedor'), array('action' => 'delete', $proveedor['Proveedor']['id']), array('class'=>'btn btn-danger'), sprintf(__('Are you sure you want to delete # %s?', true), $proveedor['Proveedor']['id'])); ?>
 </div>
 
-<center><h1>TABLA HISTORICA DE PEDIDOS AL PROVEEDOR</h1></center>
+<center><h1>Tabla historica de pedidos al proveedor</h1></center>
 
 <div class="paging paginationxt text-center">
 		<br>

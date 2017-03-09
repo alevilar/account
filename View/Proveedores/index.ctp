@@ -74,10 +74,9 @@
 				<?php echo date("d/m/Y H:i", strtotime($proveedor['Proveedor']['created'])); ?>
 			</td>
 			<td class="actions">
-				
 				<!-- Split button -->
 					<div class="btn-group">
-
+                        <?php echo $this->Html->link(__('Ver proveedor'), array('action'=>'view', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default btn-sm')); ?>
 
 						<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default btn-sm btn-edit')); ?>
 
@@ -87,9 +86,6 @@
 					    <span class="sr-only">Toggle Dropdown</span>
 					  </button>
 					  <ul class="dropdown-menu">
-					    <li class="">
-					    	<?php echo $this->Form->postLink( __('Ver proveedor'), array('action'=>'view', $proveedor['Proveedor']['id']), array('class'=>' btn-sm')); ?>
-				    	</li>
 					    <li class="">
 					    	<?php echo $this->Form->postLink( __('Borrar'), array('action'=>'delete', $proveedor['Proveedor']['id']), array('class'=>' btn-sm'), __('¿Está seguro que desea eliminar: %s?', $proveedor['Proveedor']['name'])); ?>
 				    	</li>
