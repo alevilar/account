@@ -6,6 +6,8 @@ App::uses('AccountAppController', 'Account.Controller');
 class ProveedoresController extends AccountAppController {
 
 	public $name = 'Proveedores';
+
+    public $uses = array('Account.Proveedor');
        
 	public function index () {
 		$this->Proveedor->recursive = 0;                
@@ -23,41 +25,36 @@ class ProveedoresController extends AccountAppController {
 	}
 
 	public function view($id = null) {
+		$this->uses[] = 'Compras.PedidoMercaderia';
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid Proveedor'));
 			$this->redirect($this->referer());
 		}
 		$proveedor = $this->Proveedor->buscarProveedorPorId($id);
 
-		/*$conds = array(
-            'Proveedor.id' => $id,
-            );
-        $this->Paginator->settings['Proveedor'] = array(
-            'order'  => array(
-                'INNER JOIN Pedido.created' => 'DESC',
-                ),
-            'contain' => array(
-                'Pedido' => array('PedidoMercaderia' => array('Mercaderia', 'UnidadDeMedida'), 'User')
-                ),
-            'conditions' => $conds,
-        );*/
         $conds = array(
-            'Proveedor.id' => $id
+            'Pedido.Proveedor_id' => $id
             );
 
-        $this->Paginator->settings = array(
+        $this->Paginator->settings['PedidoMercaderia'] = array(
             'order'  => array(
                 'PedidoMercaderia.created' => 'DESC',
                 ),
             'contain' => array(
-                'Pedido'=>array('User', 'Proveedor', 'PedidoMercaderia'=> array('Mercaderia' => array('Proveedor','Rubro', 'UnidadDeMedida'))),
+                'Pedido'=>array(
+                	'User', 
+                	),
+                'Mercaderia' => array(
+                	'Rubro',
+
+                	),
+                'UnidadDeMedida'
                 ),
             'conditions' => $conds,
         );
 
-        $pedidos = $this->Paginator->paginate();
+        $pedidos = $this->Paginator->paginate('PedidoMercaderia');
 
-        debug($pedidos);
 		$this->set(compact('proveedor', 'pedidos', 'mercaderia'));
 	}
 
