@@ -76,16 +76,17 @@
 			<td class="actions">
 				<!-- Split button -->
 					<div class="btn-group">
-                        <?php echo $this->Html->link(__('Ver proveedor'), array('action'=>'view', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default btn-sm')); ?>
 
-						<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default btn-sm btn-edit')); ?>
-
+						<?php echo $this->Html->link(__('Ver proveedor'), array('action'=>'view', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default btn-sm')); ?>
 
 					  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    <span class="caret"></span>
 					    <span class="sr-only">Toggle Dropdown</span>
 					  </button>
 					  <ul class="dropdown-menu">
+					   <li class="">
+					   <?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $proveedor['Proveedor']['id']), array('class'=>'btn-sm btn-edit')); ?>
+					   </li>
 					    <li class="">
 					    	<?php echo $this->Form->postLink( __('Borrar'), array('action'=>'delete', $proveedor['Proveedor']['id']), array('class'=>' btn-sm'), __('¿Está seguro que desea eliminar: %s?', $proveedor['Proveedor']['name'])); ?>
 				    	</li>
