@@ -33,7 +33,10 @@
                         <div class="col-md-6">
                         <?php
                         if ( $ti['TipoImpuesto']['tiene_neto']
-                            || !empty((float)$this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['neto'])
+                            || 
+                            ( !empty($this->request->data['Impuesto'] )
+                            	&& !empty((float)$this->request->data['Impuesto'][$ti['TipoImpuesto']['id']]['neto']
+                        	) )
                             ) {
                             echo $this->Form->input('Gasto.Impuesto.' . $ti['TipoImpuesto']['id'] . ".neto", array(
                                 'type' => 'number',
