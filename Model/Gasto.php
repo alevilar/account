@@ -205,11 +205,18 @@ class Gasto extends AccountAppModel {
             if ( !empty($this->data['Gasto']['proveedor_list'])) {                
                 $cuit = null;
                 $name = trim($this->data['Gasto']['proveedor_list']);
-                if ( preg_match_all('/(?:\s|^)(\d{11}|\d{2}-\d{8}-\d{1})(?:\s|$)/', $this->data['Gasto']['proveedor_list'], $m) ) {
+                if ( preg_match_all('/(?:\s|^)(\d{11}|\d{2}-\d{8}-\d{1})(?:\s|$)/', 
+                     $this->data['Gasto']['proveedor_list'], $proveedor_cuit) 
+                     && 
+                     preg_match_all('/[A-Za-z ]+/', 
+                     $this->data['Gasto']['proveedor_list'], $proveedor_name)) 
+                     { // sacar el cuit y name al string
+
                     // sacar guion del cuit
-                    $cuit = trim(str_replace("-", "", $m[1][0] ));
-                    // sacar el cuit al string
-                    $name = trim( str_replace($cuit, '', $this->data['Gasto']['proveedor_list']) );
+                    $cuit = trim(str_replace("-", "", $proveedor_cuit[1][0] ));
+                    debug($proveedor_cuit[1][0]."  asdasd  ".$cuit."   THE NAME IS: ".$proveedor_name[0][0]);
+                    $name = trim( str_replace($name, '', $proveedor_name[0][0]) );
+                    debug($name."   ".$cuit);
                     
                     if ( !empty($cuit) && !validate_cuit_cuil($cuit) ) {
                         $cuit = null;                    
@@ -218,13 +225,15 @@ class Gasto extends AccountAppModel {
                         $cuit = null;
                     }
                 }
-                
+
                 $data = array(
                     'Proveedor' => array(
                         'cuit' => $cuit,
                         'name' => $name,
                     )
                 );
+
+
 
                 return $data;
             }
