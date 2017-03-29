@@ -167,13 +167,15 @@ if ($this->Gasto->Proveedor->exists($proveedor_id)) {
             $this->request->data = $this->Gasto->read(null, $id);
         }
 
-        foreach ( $this->request->data['TipoImpuesto'] as $tp ) {
-            $tipoImpuestos[$tp['id']] = array('TipoImpuesto' => $tp);
-        }
-
+if (isset($this->request->data['Proveedor']['TipoImpuesto'])) {
         foreach ( $this->request->data['Proveedor']['TipoImpuesto'] as $tp ) {
             $tipoImpuestos[$tp['id']] = array('TipoImpuesto' => $tp);
         }
+    } else {
+        foreach ( $this->request->data['TipoImpuesto'] as $tp ) {
+            $tipoImpuestos[$tp['id']] = array('TipoImpuesto' => $tp);
+        }
+    }
         $this->set('tipo_impuestos', $tipoImpuestos);
 
         if (!empty($this->request->data['Impuesto'])){
